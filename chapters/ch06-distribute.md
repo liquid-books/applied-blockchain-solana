@@ -57,6 +57,15 @@ The real question is not "did the airdrop cost money?" but "did we get \$10 wort
 
 The uncomfortable truth about airdrops is that most tokens distributed for free are sold immediately. Studies of major airdrop campaigns show that 40–70% of airdrop recipients sell within the first 48 hours. This is rational behavior — free money should be harvested. The projects that convert airdrop recipients into long-term holders are the ones that gave tokens to people who were already engaged with the protocol, not random wallets from a snapshot.
 
+:::{figure} ../images/ch06-holder-retention.png
+:label: fig-ch06-holder-retention
+:alt: Holder retention curve chart comparing engaged airdrop recipients (slow decay) versus random wallet recipients (rapid sell-off in first 48 hours)
+:width: 80%
+:align: center
+
+**Holder Retention by Recipient Type:** Wallets with pre-existing on-chain activity retain tokens at dramatically higher rates than random wallets. The 48-hour sell-off is most severe for undifferentiated distributions.
+:::
+
 :::{admonition} The Engagement Filter
 :class: tip
 
@@ -66,6 +75,15 @@ Filter your recipient list by on-chain activity: number of transactions, protoco
 :::
 
 ---
+
+:::{figure} ../images/ch06-distribution-mechanisms.png
+:label: fig-ch06-distribution-mechanisms
+:alt: Overview diagram of three token distribution mechanisms: airdrop, vesting, and streaming payments with labeled properties and use cases
+:width: 80%
+:align: center
+
+**Three Distribution Primitives:** Airdrops (broad, immediate), vesting contracts (time-locked, targeted), and streaming payments (continuous, real-time). Each serves a different stakeholder and encodes a different promise.
+:::
 
 ## Vesting Contracts: Code Replaces a Legal Agreement
 

@@ -1,5 +1,5 @@
 ---
-title: "Applied Blockchain: Build a Token Economy on Solana"
+title: "TokenSystems.io: Build a Token Economy on Solana"
 description: "A hands-on Master Class Textbook by Dr. Ernesto Lee. Build a real token economy on Solana — from your first wallet to governance and treasury — in 13 applied chapters."
 ---
 
@@ -9,10 +9,10 @@ description: "A hands-on Master Class Textbook by Dr. Ernesto Lee. Build a real 
 :width: 100%
 :align: center
 
-*Applied Blockchain: Build a Token Economy on Solana* · Dr. Ernesto Lee
+*TokenSystems.io: Build a Token Economy on Solana* · Dr. Ernesto Lee
 :::
 
-# Applied Blockchain: Build a Token Economy on Solana
+# TokenSystems.io: Build a Token Economy on Solana
 
 **A Master Class Textbook by Dr. Ernesto Lee**
 
@@ -171,7 +171,7 @@ Securities law, FinCEN compliance, smart contract risk, and operational security
 
 **Dr. Ernesto Lee** is a professor of business and technology at Florida Atlantic University, Miami Dade College, and Palm Beach Atlantic University. He teaches courses in emerging technology strategy, digital transformation, and entrepreneurship. His applied curriculum model — learn by building real things on real platforms — has been adopted across institutions in South Florida.
 
-*Applied Blockchain: Build a Token Economy on Solana* is the practical companion to Dr. Lee's blockchain courses, designed to take students from zero familiarity with distributed systems to a fully operational token economy — with real assets, real liquidity, and real governance — by the end of the semester.
+*TokenSystems.io: Build a Token Economy on Solana* is the practical companion to Dr. Lee's blockchain courses, designed to take students from zero familiarity with distributed systems to a fully operational token economy — with real assets, real liquidity, and real governance — by the end of the semester.
 
 ---
 

@@ -310,6 +310,15 @@ By the end of this activity you have:
 
 ## Application Cases
 
+:::{figure} ../images/ch08-application-cases.png
+:label: fig-ch08-applications
+:alt: Diagram showing four real-world application domains for Solana programs — loyalty rewards, DAO governance, supply chain provenance, and subscription access control — each with use case arrows
+:width: 80%
+:align: center
+
+**Real-World Applications of On-Chain Programs:** The same program architecture you deployed today — initialize an account, increment on each event — underlies loyalty systems, governance votes, supply chain records, and subscription access control.
+:::
+
 ### Loyalty and Rewards Programs
 
 Starbucks' Odyssey program launched in 2022 as a blockchain-based loyalty extension, using smart contract logic to issue NFT stamps and track engagement points. The underlying principle — a check-in program incrementing a counter tied to a user's wallet — is exactly what you built today. At scale, this becomes: user buys coffee, app sends `increment` instruction to the loyalty program, counter updates, threshold triggers token reward. No central database, no points expiry managed by the company, no opaque "we reset your balance" decisions.

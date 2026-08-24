@@ -111,6 +111,15 @@ Many serious token projects follow a phased revocation schedule:
 This roadmap can be announced in advance, communicated to token holders, and verified on-chain. Done well, it is a credibility-building exercise, not a sacrifice of control.
 :::
 
+:::{figure} ../images/ch03-authority-revocation-roadmap.png
+:label: fig-ch03-revocation-roadmap
+:alt: Three-phase governance roadmap showing the recommended sequence for revoking freeze authority at launch, update authority after distribution, and mint authority at supply cap
+:width: 80%
+:align: center
+
+**Authority Revocation Roadmap:** A phased approach to revoking token authorities builds credibility systematically. Each revocation is an on-chain event any holder can verify — turning a governance commitment into a mathematical guarantee.
+:::
+
 ---
 
 ## Associated Token Accounts: Why Receiving a New Token Is Not Automatic

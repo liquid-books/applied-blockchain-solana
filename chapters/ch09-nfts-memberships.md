@@ -22,6 +22,12 @@ Every new technology arrives draped in its worst possible use case. The steam en
 
 That's unfortunate. Because underneath the speculation, the NFT standard solved a real problem: *how do you prove unique ownership of a digital thing on a public ledger?*
 
+**▶ Watch: NFTs Explained in 4 minutes!** (3 min)
+
+:::{youtube} FkUn86bH34M
+:align: center
+:::
+
 This chapter answers that question — and then turns it into a business tool. By the end of the session you will have designed a three-tier membership pass collection, minted it on Solana mainnet, connected those passes to the token gate you built in Chapter 7, and listed one pass on a marketplace to observe secondary-market mechanics firsthand. You will walk away holding a transferable, resalable asset that represents access to something your business actually offers.
 
 ---
@@ -130,6 +136,12 @@ The field `seller_fee_basis_points: 500` encodes a 5% royalty on secondary sales
 ### Storage: IPFS vs. Arweave
 
 The metadata JSON and image need to live somewhere persistent. Two options dominate:
+
+**▶ Watch: IPFS: Interplanetary file storage! (9 min)**
+
+:::{youtube} 5Uj6uR3fp-U
+:align: center
+:::
 
 - **IPFS via NFT.Storage or Pinata**: Content-addressed storage. Your file is identified by a hash of its contents. Free tiers exist. The risk: if no node is "pinning" your file, it can disappear.
 - **Arweave**: Pay once, stored permanently. Arweave's economic model is designed around perpetual storage. Bundlr (now Irys) makes Arweave uploads easy and cheap — a 1 MB file costs fractions of a cent. For production memberships where the metadata must exist forever, Arweave is the standard choice.

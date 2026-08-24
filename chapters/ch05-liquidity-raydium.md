@@ -24,6 +24,12 @@ You minted it. You launched it. Maybe you even designed an elegant tokenomics mo
 
 Welcome to liquidity on Raydium.
 
+**▶ Deep Dive: Introduction to DeFi (31 min)**
+
+:::{youtube} vocM1bRVZmg
+:align: center
+:::
+
 ## What Liquidity Actually Means
 
 The word "liquidity" sounds like finance jargon, but the idea is almost physical. Imagine trying to sell a rare piece of art versus selling a dollar bill. The dollar bill sells instantly at a known price. The painting might take months, and the final price is uncertain. The dollar bill is *liquid*. The painting is *illiquid*.

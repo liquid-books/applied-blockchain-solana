@@ -72,6 +72,12 @@ The mathematics behind this (elliptic curve cryptography) ensures that knowing t
 **Public and Private Keys:** The public key is your address — safe to share openly. The private key is your authorization mechanism — share it with no one, ever. Lose it, and the assets secured by it are gone permanently.
 :::
 
+**▶ Watch: Asymmetric Encryption — Simply Explained (4 min)**
+
+:::{youtube} AQDCe585Lnc
+:align: center
+:::
+
 :::{admonition} Where the Analogy Breaks Down
 :class: note
 
@@ -100,6 +106,12 @@ The wallet is a window into the blockchain and a signing mechanism. The assets a
 :align: center
 
 **Wallet Anatomy:** A wallet does not contain your assets — they live on the blockchain. The wallet is a key manager: it generates addresses, signs transactions, and serves as your interface to on-chain balances.
+:::
+
+**▶ Watch: How Bitcoin Wallets Work (Public & Private Key Explained) (4 min)**
+
+:::{youtube} GSTiKjnBaes
+:align: center
 :::
 
 ---

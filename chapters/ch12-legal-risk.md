@@ -320,6 +320,12 @@ One mistake projects make is treating the launch checklist as a one-time event r
 
 Regulatory environments change. The SEC issues new guidance. A jurisdiction that was permissive becomes restrictive. A new exchange listing requires additional compliance documentation. New security vulnerabilities are discovered in common Solana program patterns. Community members are targeted by increasingly sophisticated social engineering attacks.
 
+**▶ Watch: Will GDPR kill blockchains? (9 min)**
+
+:::{youtube} 5I3wYAwbKMM
+:align: center
+:::
+
 :::{figure} ../images/ch12-regulatory-map.png
 :label: fig-ch12-regulatory
 :alt: Global regulatory landscape map showing token-friendly jurisdictions in green, uncertain jurisdictions in yellow, and restrictive or hostile jurisdictions in red — with inset callouts showing specific regulations in the US, EU, Singapore, and UAE
@@ -353,6 +359,12 @@ Understanding what success looks like — not just failure — is essential for 
 :::
 
 ---
+
+**▶ Extended Viewing: Full Conference Talk (31 min)**
+
+:::{youtube} HNCwbKAY7AM
+:align: center
+:::
 
 ## 🎓 Glossary
 

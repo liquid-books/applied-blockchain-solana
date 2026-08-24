@@ -122,6 +122,12 @@ For a loyalty point system where 1 point = 1 point, fungibility is correct. You 
 Casino chips are fungible within a denomination but non-fungible across denominations — a \$100 chip and a \$25 chip cannot be swapped. Some of the most interesting token designs create *semi-fungible* tokens: batches where tokens within the batch are interchangeable (fungible), but tokens across batches are distinguishable (non-fungible). The ERC-1155 standard on Ethereum formalized this. Solana's compressed NFTs and programmable NFTs support similar patterns. For your first token economy, pick one: pure fungible SPL token, or pure NFT. The hybrid cases are fascinating but belong in Chapter 9.
 :::
 
+**▶ Watch: ERC20 tokens — Simply Explained** (6 min)
+
+:::{youtube} cqZhNzZoMh8
+:align: center
+:::
+
 ---
 
 ## Loyalty Programs as the Original Token Economy

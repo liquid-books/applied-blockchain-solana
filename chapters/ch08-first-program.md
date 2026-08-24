@@ -22,6 +22,12 @@ Everything you have built so far in this course has been built *inside* someone 
 
 Now you are going to write and deploy one of your own.
 
+**▶ Watch: Smart contracts — Simply Explained** (4 min)
+
+:::{youtube} ZE2HxTmxfrI
+:align: center
+:::
+
 This is not a software engineering chapter. You will not need to install anything. You will not need to understand every line of code. What you *will* understand is what a program actually is, how it differs from what you might have heard about Ethereum smart contracts, why the phrase "code is law" is both a promise and a serious warning, and how a business leader — not a developer — reads a deployed program and evaluates whether it is safe to trust.
 
 The activity at the end deploys a check-in program to Solana's devnet entirely inside your browser using Solana Playground. By the time you finish, you will have a real transaction on a real network proving your program ran.
@@ -391,6 +397,38 @@ Multisig
 Immutable Program
   A deployed program whose upgrade authority has been revoked. The program's code can never be changed. This maximizes user trust but eliminates the ability to fix bugs or comply with new regulations.
 ```
+
+---
+
+## Going Deeper: Build a Blockchain from Scratch
+
+**▶ Build a Blockchain from Scratch — Simply Explained Series**
+
+The videos below walk through building a working blockchain in JavaScript — no frameworks, no shortcuts. Watching this series alongside the Solana program you deployed today gives you a complete picture of what every layer of the stack actually does.
+
+**▶ Watch: Creating a blockchain with Javascript (part 1) (14 min)**
+
+:::{youtube} zVqczFZr124
+:align: center
+:::
+
+**▶ Watch: Implementing Proof-of-Work in Javascript (part 2) (6 min)**
+
+:::{youtube} HneatE69814
+:align: center
+:::
+
+**▶ Watch: Mining rewards & transactions (part 3) (12 min)**
+
+:::{youtube} fRV6cGXVQ4I
+:align: center
+:::
+
+**▶ Watch: Signing transactions (part 4) (18 min)**
+
+:::{youtube} kWQ84S13-hw
+:align: center
+:::
 
 ---
 

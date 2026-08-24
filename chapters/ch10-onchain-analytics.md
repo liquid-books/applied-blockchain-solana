@@ -489,6 +489,18 @@ Token economies work differently. A token creator who makes a poor treasury mana
 
 This chapter's core question: **Is radical transparency good for a business?**
 
+:::{admonition} Privacy in a Transparent World
+:class: note
+
+On-chain transparency raises a critical counterpoint: what about privacy? Zero-knowledge proofs represent the frontier of reconciling public verifiability with private data. Watch the explainer below to understand how ZKPs can prove something is true without revealing the underlying information — a concept increasingly relevant to compliant token design.
+:::
+
+**▶ Watch: Zero Knowledge Proof — ZKP (10 min)**
+
+:::{youtube} OcmvMs4AMbM
+:align: center
+:::
+
 :::{figure} ../images/ch10-transparency-comparison.png
 :label: fig-ch10-transparency-comparison
 :alt: Visual comparison of traditional corporate quarterly reporting timeline versus real-time on-chain transparency with accountability differences highlighted

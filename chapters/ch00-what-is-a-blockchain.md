@@ -53,6 +53,12 @@ For most of human history, the answer has been: *a trusted central authority*. A
 
 This arrangement works well enough — until it does not.
 
+**▶ Watch: How does a blockchain work — Simply Explained** (6 min)
+
+:::{youtube} SSo_EIwHSd4
+:align: center
+:::
+
 ---
 
 ## The Trust Problem
@@ -123,6 +129,12 @@ This chaining creates immutability through dependency. If you wanted to alter a 
 **The Hash Chain:** Each block's fingerprint is embedded in the next block. Altering any historical block would require recalculating every subsequent block faster than the rest of the network — a task that is computationally infeasible.
 :::
 
+**▶ Watch: Passwords & hash functions — Simply Explained** (7 min)
+
+:::{youtube} cczlpiiu42M
+:align: center
+:::
+
 ### Consensus: How the Network Agrees
 
 The five hundred villagers with notebooks need a procedure for agreeing on which transactions to add — and for detecting and rejecting fraudulent ones. This procedure is called a **consensus mechanism**.
@@ -141,6 +153,12 @@ Solana, which we will use in this course, uses **Proof of History** combined wit
 :::
 
 The consensus mechanism is what makes the network **trustless** — meaning you do not need to trust any individual participant, because the rules of the system make cheating economically self-defeating. This is one of the most subtle and important ideas in this course. We are not replacing trust with faith in a better institution. We are replacing trust with *mathematics and economic incentives*. The village elder is replaced not by five hundred elders — but by five hundred people who are each paid to be honest and punished for being dishonest, enforced automatically by code.
+
+**▶ Watch: Proof-of-Stake (vs Proof-of-Work)** (8 min)
+
+:::{youtube} M3EFi_POhps
+:align: center
+:::
 
 ---
 
@@ -261,6 +279,12 @@ In Broward County, Florida — where many of our students work — title fraud i
 
 A blockchain-based property registry would create an immutable record of every transfer, accessible to any party, verifiable without a title company intermediary. The Republic of Georgia implemented a blockchain property registry in 2016. The state of Wyoming has enacted legislation enabling blockchain-based property records. This is not theoretical — it is happening.
 
+**▶ Watch: Blockchains — how can they be used?** (7 min)
+
+:::{youtube} aQWflNQuP_o
+:align: center
+:::
+
 ---
 
 ## The Decision Test: When Blockchain Is the Wrong Answer
@@ -370,6 +394,12 @@ Blockchain technology is not a technology story first. It is a property rights s
 In the United States today, approximately 1.8 billion adults globally lack access to formal banking. Not because they lack money or economic activity — but because the institutional infrastructure for ownership and credit does not exist in their communities, or actively excludes them. A blockchain-based financial system needs only a smartphone and an internet connection. It does not need a branch office, a Social Security number, a credit history, or the discretion of a loan officer.
 
 This is not utopian speculation. It is an application of the exact technology we have just described. In countries with unstable currencies — Venezuela, Lebanon, Argentina, Zimbabwe — citizens are using Solana-based stable coins to hold value that their national banking systems cannot protect. The value is in the wallet. The key is in their hands.
+
+**▶ Watch: Mining Difficulty — Simply Explained** (5 min)
+
+:::{youtube} o1gOyhU6XEw
+:align: center
+:::
 
 :::{figure} ../images/ch00-global-impact.png
 :label: fig-ch00-global-impact

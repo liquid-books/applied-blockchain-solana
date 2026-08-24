@@ -146,6 +146,18 @@ The corporate analogy maps cleanly:
 | Audit trail of all approvals | Immutable on-chain record |
 | Separation of duties | No single key controls funds |
 
+:::{admonition} Off-Chain Transaction Channels
+:class: tip
+
+Multisig approvals batch decisions efficiently, but not every transaction needs to hit the base chain. Bitcoin's Lightning Network pioneered the concept of payment channels — opening a channel on-chain, transacting off-chain at speed and low cost, then settling the net result on-chain. The same throughput philosophy informs how governance systems handle high-frequency treasury actions.
+:::
+
+**▶ Watch: Bitcoin's Lightning Network, Simply Explained! (5 min)**
+
+:::{youtube} rrr_zPmEiME
+:align: center
+:::
+
 The multisig is not just a security measure. It is a governance statement. When you put your treasury in a 3-of-5 multisig and publish the signer addresses, you are telling your community: *nobody controls this alone, including me.* That signal is worth more than any whitepaper promise.
 
 ---
@@ -319,6 +331,12 @@ MakerDAO governs the DAI stablecoin — a \$10 billion-plus system entirely cont
 **Compound: The Model Everyone Copied**
 
 Compound Finance built one of the first sophisticated token governance systems in DeFi and then open-sourced it. The "Compound Governor" smart contract — which defines how proposals are submitted, votes are counted, and instructions are executed — became the template for dozens of subsequent governance implementations, including Uniswap. Understanding Compound's governance is understanding how most of DeFi votes.
+
+**▶ Watch: What is a Bitcoin hard fork? Simply Explained! (4 min)**
+
+:::{youtube} XCo6yyutYAM
+:align: center
+:::
 
 **The Juno Network Incident: Whale Capture in Real Life**
 

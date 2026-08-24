@@ -103,6 +103,15 @@ Several no-code platforms make token-gating straightforward for Solana tokens:
 
 **Matrica** — Focused on Solana communities, with Discord integration and rich role assignment based on wallet contents.
 
+:::{figure} ../images/ch07-gating-platforms.png
+:label: fig-ch07-gating-platforms
+:alt: Comparison grid of four Solana token-gating platforms — Holder.xyz, Grape Protocol, Guild.xyz, and Matrica — with their key features and Discord or Telegram compatibility
+:width: 80%
+:align: center
+
+**Token-Gating Platform Comparison:** Four no-code platforms for gating Solana SPL token communities. All read on-chain balances; they differ in target platform, rule complexity, and ecosystem integrations.
+:::
+
 Each platform follows the same pattern:
 
 1. Community admin connects the platform to their Discord server or Telegram group and grants the bot appropriate permissions
@@ -184,7 +193,6 @@ Beyond access, tokens can serve as a payment medium. Instead of charging custome
 The mechanics are simple enough: you price your service in tokens, accept token payments, and the tokens move from the buyer's wallet to yours (or to a treasury wallet). But underneath that simple mechanic is a set of economic challenges that every founder building a token payment system must understand.
 
 :::{figure} ../images/ch07-payment-flow.png
-<br>
 :label: fig-ch07-payment-flow
 :alt: Diagram showing token payment flow from customer wallet through service access point to treasury or burn mechanism, with volatility risk labeled
 :width: 80%

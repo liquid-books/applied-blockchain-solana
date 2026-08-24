@@ -52,6 +52,7 @@ project:
 
 site:
   title: "TokenSystems.io: Build a Token Economy on Solana"
+  base_url: /
   options:
     logo_text: "TokenSystems.io: Build a Token Economy on Solana"
     logo_url: "/"

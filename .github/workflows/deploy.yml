@@ -5,8 +5,6 @@ name: MyST GitHub Pages Deploy
 on:
   push:
     branches: [main]
-env:
-  BASE_URL: /
 
 permissions:
   contents: read

@@ -1,0 +1,59 @@
+# MyST project configuration
+# Docs: https://mystmd.org/guide/configuration
+version: 1
+project:
+  title: "Applied Blockchain: Build a Token Economy on Solana"
+  authors:
+    - name: Dr. Ernesto Lee
+  # Book-level attributes
+  keywords: []
+  license: CC-BY-4.0
+  open_access: true
+  github: https://github.com/liquid-books/applied-blockchain-solana
+  # Numbering
+  numbering:
+    heading_1: true
+    heading_2: true
+    heading_3: true
+    figure: true
+    table: true
+    equation: true
+  exports:
+    - format: pdf
+  # Table of contents — chapters added here as they are written
+  toc:
+    - file: index.md
+    - title: "Chapter 0: What Is a Blockchain?"
+      file: chapters/ch00-what-is-a-blockchain.md
+    - title: "Chapter 1: Your First Transaction in 20 Minutes"
+      file: chapters/ch01-first-transaction.md
+    - title: "Chapter 2: Design Your Token Like a Business"
+      file: chapters/ch02-design-your-token.md
+    - title: "Chapter 3: Launch Your Token for Under $60"
+      file: chapters/ch03-launch-your-token.md
+    - title: "Chapter 4: Tokenomics on a Napkin"
+      file: chapters/ch04-tokenomics.md
+    - title: "Chapter 5: Give It a Market: Liquidity on Raydium"
+      file: chapters/ch05-raydium-liquidity.md
+    - title: "Chapter 6: Distribute It: Airdrops, Vesting, and Team Allocations"
+      file: chapters/ch06-distribute.md
+    - title: "Chapter 7: Give It Something to Do: Utility Without Code"
+      file: chapters/ch07-utility.md
+    - title: "Chapter 8: Your First Program, No Setup Required"
+      file: chapters/ch08-first-program.md
+    - title: "Chapter 9: Ownership as an Asset: NFTs and Memberships"
+      file: chapters/ch09-nfts-memberships.md
+    - title: "Chapter 10: Reading the Economy: On-Chain Analytics"
+      file: chapters/ch10-onchain-analytics.md
+    - title: "Chapter 11: Governance and Treasury"
+      file: chapters/ch11-governance-treasury.md
+    - title: "Chapter 12: Legal, Risk, and Running It for Real"
+      file: chapters/ch12-legal-risk.md
+
+site:
+  title: "Applied Blockchain: Build a Token Economy on Solana"
+  options:
+    logo_text: "Applied Blockchain: Build a Token Economy on Solana"
+    logo_url: "/"
+  parts:
+    primary_sidebar_footer: primary-sidebar-footer.md

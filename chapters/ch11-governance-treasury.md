@@ -154,9 +154,9 @@ Multisig approvals batch decisions efficiently, but not every transaction needs 
 
 **▶ Watch: Bitcoin's Lightning Network, Simply Explained! (5 min)**
 
-:::{youtube} rrr_zPmEiME
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/rrr_zPmEiME" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 The multisig is not just a security measure. It is a governance statement. When you put your treasury in a 3-of-5 multisig and publish the signer addresses, you are telling your community: *nobody controls this alone, including me.* That signal is worth more than any whitepaper promise.
 
@@ -334,9 +334,9 @@ Compound Finance built one of the first sophisticated token governance systems i
 
 **▶ Watch: What is a Bitcoin hard fork? Simply Explained! (4 min)**
 
-:::{youtube} XCo6yyutYAM
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/XCo6yyutYAM" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 **The Juno Network Incident: Whale Capture in Real Life**
 

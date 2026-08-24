@@ -55,9 +55,9 @@ This arrangement works well enough — until it does not.
 
 **▶ Watch: How does a blockchain work — Simply Explained** (6 min)
 
-:::{youtube} SSo_EIwHSd4
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/SSo_EIwHSd4" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 ---
 
@@ -131,9 +131,9 @@ This chaining creates immutability through dependency. If you wanted to alter a 
 
 **▶ Watch: Passwords & hash functions — Simply Explained** (7 min)
 
-:::{youtube} cczlpiiu42M
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/cczlpiiu42M" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 ### Consensus: How the Network Agrees
 
@@ -156,9 +156,27 @@ The consensus mechanism is what makes the network **trustless** — meaning you 
 
 **▶ Watch: Proof-of-Stake (vs Proof-of-Work)** (8 min)
 
-:::{youtube} M3EFi_POhps
-:align: center
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/M3EFi_POhps" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
+
+:::{admonition} Alternative Chains — Different Tradeoffs
+:class: seealso
+
+Bitcoin and Solana are not the only answers. Different blockchains make different consensus tradeoffs. Cardano uses a peer-reviewed Proof of Stake protocol emphasizing formal verification; IOTA takes a radically different approach using a Directed Acyclic Graph (DAG) instead of a traditional chain. Watching both explainers below gives you a broader map of the design space.
 :::
+
+**▶ Watch: Cardano — Simply Explained (8 min)**
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/Do8rHvr65ZA" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
+
+**▶ Watch: IOTA — Simply Explained (5 min)**
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/CZxH1V_zoug" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 ---
 
@@ -281,9 +299,9 @@ A blockchain-based property registry would create an immutable record of every t
 
 **▶ Watch: Blockchains — how can they be used?** (7 min)
 
-:::{youtube} aQWflNQuP_o
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/aQWflNQuP_o" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 ---
 
@@ -397,9 +415,9 @@ This is not utopian speculation. It is an application of the exact technology we
 
 **▶ Watch: Mining Difficulty — Simply Explained** (5 min)
 
-:::{youtube} o1gOyhU6XEw
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/o1gOyhU6XEw" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 :::{figure} ../images/ch00-global-impact.png
 :label: fig-ch00-global-impact

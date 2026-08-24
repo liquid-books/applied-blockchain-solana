@@ -497,9 +497,9 @@ On-chain transparency raises a critical counterpoint: what about privacy? Zero-k
 
 **▶ Watch: Zero Knowledge Proof — ZKP (10 min)**
 
-:::{youtube} OcmvMs4AMbM
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/OcmvMs4AMbM" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 :::{figure} ../images/ch10-transparency-comparison.png
 :label: fig-ch10-transparency-comparison

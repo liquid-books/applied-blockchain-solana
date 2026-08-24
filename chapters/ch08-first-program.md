@@ -24,9 +24,9 @@ Now you are going to write and deploy one of your own.
 
 **▶ Watch: Smart contracts — Simply Explained** (4 min)
 
-:::{youtube} ZE2HxTmxfrI
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/ZE2HxTmxfrI" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 This is not a software engineering chapter. You will not need to install anything. You will not need to understand every line of code. What you *will* understand is what a program actually is, how it differs from what you might have heard about Ethereum smart contracts, why the phrase "code is law" is both a promise and a serious warning, and how a business leader — not a developer — reads a deployed program and evaluates whether it is safe to trust.
 
@@ -408,27 +408,27 @@ The videos below walk through building a working blockchain in JavaScript — no
 
 **▶ Watch: Creating a blockchain with Javascript (part 1) (14 min)**
 
-:::{youtube} zVqczFZr124
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/zVqczFZr124" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 **▶ Watch: Implementing Proof-of-Work in Javascript (part 2) (6 min)**
 
-:::{youtube} HneatE69814
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/HneatE69814" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 **▶ Watch: Mining rewards & transactions (part 3) (12 min)**
 
-:::{youtube} fRV6cGXVQ4I
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/fRV6cGXVQ4I" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 **▶ Watch: Signing transactions (part 4) (18 min)**
 
-:::{youtube} kWQ84S13-hw
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/kWQ84S13-hw" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 ---
 

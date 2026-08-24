@@ -74,9 +74,9 @@ The mathematics behind this (elliptic curve cryptography) ensures that knowing t
 
 **▶ Watch: Asymmetric Encryption — Simply Explained (4 min)**
 
-:::{youtube} AQDCe585Lnc
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/AQDCe585Lnc" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 :::{admonition} Where the Analogy Breaks Down
 :class: note
@@ -110,9 +110,9 @@ The wallet is a window into the blockchain and a signing mechanism. The assets a
 
 **▶ Watch: How Bitcoin Wallets Work (Public & Private Key Explained) (4 min)**
 
-:::{youtube} GSTiKjnBaes
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/GSTiKjnBaes" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 ---
 

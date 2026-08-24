@@ -322,9 +322,9 @@ Regulatory environments change. The SEC issues new guidance. A jurisdiction that
 
 **▶ Watch: Will GDPR kill blockchains? (9 min)**
 
-:::{youtube} 5I3wYAwbKMM
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/5I3wYAwbKMM" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 :::{figure} ../images/ch12-regulatory-map.png
 :label: fig-ch12-regulatory
@@ -362,9 +362,9 @@ Understanding what success looks like — not just failure — is essential for 
 
 **▶ Extended Viewing: Full Conference Talk (31 min)**
 
-:::{youtube} HNCwbKAY7AM
-:align: center
-:::
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/HNCwbKAY7AM" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
 
 ## 🎓 Glossary
 

@@ -79,6 +79,12 @@ The deeper you look, the clearer the paradox becomes: modern commerce is built o
 This is not a cynical observation. It is an architectural reality. And it is precisely the gap that distributed ledgers are designed to fill.
 :::
 
+**▶ Watch: Bitcoin is Worthless (But So Is Your "Real" Money) — Simply Explained** (6 min)
+
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;margin:1.5rem 0;">
+<iframe src="https://www.youtube.com/embed/IjEw5uwg-Qc" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="YouTube video"></iframe>
+</div>
+
 ---
 
 ## The Blockchain Solution: Distributed, Immutable, and Trustless

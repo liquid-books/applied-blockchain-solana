@@ -225,7 +225,7 @@ The **rent-exempt deposit** requires explanation. On Solana, every account must 
 
 Distribution has a tax dimension that almost no first-time issuer budgets for. The framing below is U.S. law; your jurisdiction differs, but the categories are broadly the same — check with a tax professional before any real distribution.
 
-**For recipients:** an airdrop received is ordinary income at the token's fair market value on the date of receipt — this has been IRS guidance since 2019 (see {term}`Fair Market Value (FMV)` in the glossary). Streaming payments and vesting releases to contributors are compensation, taxable when received, not when the stream was created. And adding or removing liquidity and swapping one token for another are generally taxable events in their own right.
+**For recipients:** an airdrop received is ordinary income at the token's fair market value on the date of receipt — this has been IRS guidance since 2019 (see *Fair Market Value (FMV)* in the glossary). Streaming payments and vesting releases to contributors are compensation, taxable when received, not when the stream was created. And adding or removing liquidity and swapping one token for another are generally taxable events in their own right.
 
 **For reporting:** brokers now report digital-asset transactions to the IRS on **Form 1099-DA**, so the assumption that token activity is invisible is no longer even superficially true.
 

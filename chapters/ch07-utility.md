@@ -349,7 +349,7 @@ We will walk through the Discord + Collab.Land path in detail. The Telegram setu
 
 1. Create a new Discord server (or use an existing test server). Name it after your token project.
 2. Create a new text channel called `#holders-only`. Do not set any permissions yet.
-3. Create a new role called `Token Holder`. Give this role access to `#holders-only`. Remove @everyone's access to that channel.
+3. Create a new role called `Token Holder`. Give this role access to `#holders-only`. Remove the `@everyone` role's access to that channel.
 4. Test that an account without the `Token Holder` role cannot see `#holders-only`. If they can, the permissions are not set correctly.
 
 **Phase 2: Configure Collab.Land**

@@ -5,7 +5,7 @@
 **Constraints:** (1) no new chapters; (2) **additive only — the existing book is not to be rewritten.**
 **Purpose of this document:** a complete, chapter-by-chapter specification of what to ADD, that an editing AI can execute in one pass.
 
-**BOOK-WIDE SOL PRICE CONSTANT (set by editor): SOL ≈ $200. Use in index.md note and Ch. 1, 3, 5, 6 dollar figures.**
+**BOOK-WIDE SOL PRICE CONSTANT (set by editor): SOL ≈ $100. Use in index.md note and Ch. 1, 3, 5, 6 dollar figures.**
 
 ---
 
@@ -85,7 +85,7 @@ Other chapters get one-line pointers only:
 | `index.md` line ~126 | Ch. 5 card links to `./chapters/ch05-raydium-liquidity.md`; file is `ch05-liquidity-raydium.md`. Live link 404s. Fix the path. |
 | `index.md` Ch. 10 card | Says "Dune Analytics, Solscan…". Ch. 10 never uses Dune. Keep the card and add the Dune step to Ch. 10 (specified below). |
 | `index.md` Ch. 12 card | Says "FinCEN compliance." Ch. 12 never mentions FinCEN. Add the section to Ch. 12 (specified below). |
-| `index.md` "Why Solana" | Add: "Dollar figures throughout this book assume SOL ≈ $200. Recompute with the current price." Use $200 in Ch. 1, 3, 5, 6. |
+| `index.md` "Why Solana" | Add: "Dollar figures throughout this book assume SOL ≈ $100. Recompute with the current price." Use $100 in Ch. 1, 3, 5, 6. |
 | All chapters | "65,000 transactions per second" → "a theoretical ceiling of 65,000 TPS; sustained real-world throughput is in the low thousands." |
 | Ch. 2 glossary | Convert from bold-prose to the ```{glossary}``` directive used by every other chapter. |
 | Ch. 0 glossary | Remove the duplicate "Genesis Block" entry. |
@@ -147,7 +147,7 @@ Deliverable: a one-page PDF with your four screenshots (hash, broken chain, peer
 **Small factual corrections (replace only the quoted text; nothing else in the chapter changes)**
 - "Phantom: Solana's Primary Wallet": delete "open-source" (Phantom is closed-source; audited). Replace "over 3 million active users" with "more than 15 million monthly active users."
 - "The Ethereum Challenge": after the Layer-2 parenthetical, add two sentences acknowledging that Ethereum L2s (Base, Arbitrum) are the realistic 2026 comparison on fees and speed, and that the book's argument for Solana rests on a single integrated execution layer with no bridging between L1 and L2.
-- Apply the SOL-price assumption note ($200).
+- Apply the SOL-price assumption note ($100).
 
 **Addition — append to "Custody Models: Self-Custody vs. Custodial Wallets" (after the Hardware Wallets subsection, as a fourth subsection):**
 
@@ -191,7 +191,7 @@ Part 0 — Run the test on a memecoin
 
 **Small factual corrections (replace only the quoted text; nothing else in the chapter changes)**
 - "The Squarespace Analogy": Orca (a DEX) has no token-creator product. Replace "**Solana Token Creator** by Orca" with "**Solana Compass's Token Creator** (solanacompass.com/tools/create-solana-token)". Smithii and SPL Token UI stay as written.
-- "Cost Anatomy": align the ATA rent dollar figure with the book-wide SOL price ($200).
+- "Cost Anatomy": align the ATA rent dollar figure with the book-wide SOL price ($100).
 
 **New section — insert after "Three Powers…", before "Associated Token Accounts":**
 
@@ -253,7 +253,7 @@ Cover:
 
 **Small factual corrections (replace only the quoted text; nothing else in the chapter changes)**
 - Glossary "Raydium": remove "access to Serum's central limit order book" (Serum is defunct since late 2022). Replace with: "a major Solana DEX offering constant-product (Standard/CPMM) and concentrated-liquidity (CLMM) pools, integrated with the Jupiter aggregator."
-- Scenario dollar prices: use the book-wide SOL assumption ($200).
+- Scenario dollar prices: use the book-wide SOL assumption ($100).
 - **Pool-creation cost (the chapter understates it).** Raydium charges a **0.15 SOL pool-creation fee** for a Standard AMM (CPMM) pool, separate from rent and transaction fees. Three places to correct: (a) "What You Need": change "At minimum $20 worth of SOL in your wallet" to "At minimum 0.15 SOL for Raydium's pool-creation fee, plus the SOL you will deposit into the pool, plus ~0.02 SOL for rent and transaction fees"; (b) Step 5 "Initialize the Pool": change "The total cost … should be under $1 in total transaction fees" to "Raydium charges a one-time 0.15 SOL pool-creation fee (shown in the confirmation), plus under $1 in rent and transaction fees, plus whatever SOL you deposit"; (c) Step 3: the pool type is labeled **Standard AMM (CPMM)** in Raydium's interface — note that this is the CPMM program, which is what the new *Pool Types* section and *Burn & Earn* step refer to. Also update the index card's "$20" framing in "What This Book Is" (Chapter 5 line) to "for the cost of a pool-creation fee and a few dollars of liquidity."
 
 **New section A — insert after "The Constant Product Formula", before "Price Discovery":**
@@ -382,7 +382,7 @@ Add to the lab notebook table: "LP locked/burned (Y/N, %)", "RugCheck score", "S
 
 **Small factual corrections (replace only the quoted text; nothing else in the chapter changes)**
 - Resolve the network thread. Recommended: keep the lab on **devnet** and add, at the top of "Hands-On Lab": "This lab runs on devnet because you will be sending tokens to many wallets and testing cancellation. Your Chapter 3 token exists only on mainnet. Mint a throwaway devnet token first (Chapter 3, Step 3b, or any creator switched to devnet) and use it for every step below."
-- Align the ATA rent dollar figure ("~$0.50") with Ch. 3 and the book-wide SOL price ($200).
+- Align the ATA rent dollar figure ("~$0.50") with Ch. 3 and the book-wide SOL price ($100).
 
 **New box — insert after "Computing Your Distribution Cost":**
 
@@ -599,7 +599,7 @@ Add a closing line: "Update this box every term; the dates above are the last ve
 | Ch. 9 | Core vs. Token Metadata mixed | Fixed above |
 | Ch. 11 | Quadratic voting, two wrong definitions | Fixed above |
 | Ch. 11 | "$6.43 per UNI" at launch | Opened near $3, doubled within a day |
-| Ch. 3 vs. Ch. 6 | ATA rent $0.30 vs. $0.50; 10 SOL vs. $5,000 | Use one SOL price ($200) |
+| Ch. 3 vs. Ch. 6 | ATA rent $0.30 vs. $0.50; 10 SOL vs. $5,000 | Use one SOL price ($100) |
 | Ch. 6 | Lab on devnet with a mainnet-only token | Resolved above |
 | Ch. 9 | "Underdog Protocol" gate from Ch. 7 | Replaced with Collab.Land above |
 | Ch. 7 | Holder.xyz (sunset), Grape Protocol (domain for sale), Guild.xyz (EVM-only) | Replaced with Collab.Land + Matrica above |

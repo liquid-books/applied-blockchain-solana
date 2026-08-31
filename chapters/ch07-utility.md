@@ -4,7 +4,7 @@ subtitle: "A Token Without a Job Is Just a Speculative Bet"
 short_title: "Utility Without Code"
 description: "Every token needs a reason to exist beyond being traded. This chapter covers utility sinks, token-gating, tiered benefits, payments in your own token, and the engagement loop — and shows you how to build a real gated community without writing a line of code."
 label: ch-07-utility
-tags: [token utility, token-gating, Discord, Telegram, Holder.xyz, Grape, engagement loop, loyalty mechanics, tiered benefits, Web3 community]
+tags: [token utility, token-gating, Discord, Telegram, Collab.Land, Matrica, engagement loop, loyalty mechanics, tiered benefits, Web3 community, Solana Pay]
 ---
 
 # Give It Something to Do — Utility Without Code
@@ -95,21 +95,17 @@ This creates a fundamentally different relationship between the community owner 
 
 Several no-code platforms make token-gating straightforward for Solana tokens:
 
-**Holder.xyz** — Integrates with Discord and Telegram. You connect your server, define a role, set a minimum token balance, and the platform continuously monitors wallets linked by your members. When a member's balance drops below the threshold, the role is automatically removed.
+**Collab.Land** — The most widely installed token-gating bot, supporting both Discord and Telegram. On Solana, a "Token Gating Rule" (TGR) checks an SPL token balance or an NFT collection; several TGRs can map to a single role, and members verify by connecting Phantom through the bot's link. A free tier covers small servers.
 
-**Grape Protocol** — A Solana-native community infrastructure tool. Grape lets you define access rules for Discord servers based on SPL token holdings, NFT ownership, or combinations of both. Members verify by connecting their wallet through the Grape dApp.
-
-**Guild.xyz** — Multi-chain gating platform with Solana support. Allows complex requirements: hold Token A AND Token B, or hold at least 100 Token A OR own an NFT from Collection X. Logic gates make sophisticated access hierarchies possible without code.
-
-**Matrica** — Focused on Solana communities, with Discord integration and rich role assignment based on wallet contents.
+**Matrica** — Solana-native, with both Discord and Telegram integration. Rules can be built on SPL token balances, NFT collections, and NFT traits. Paid plans start at roughly \$35/month.
 
 :::{figure} ../images/ch07-gating-platforms.png
 :label: fig-ch07-gating-platforms
-:alt: Comparison grid of four Solana token-gating platforms — Holder.xyz, Grape Protocol, Guild.xyz, and Matrica — with their key features and Discord or Telegram compatibility
+:alt: Comparison grid of two Solana token-gating platforms — Collab.Land and Matrica — with their key features and Discord or Telegram compatibility
 :width: 80%
 :align: center
 
-**Token-Gating Platform Comparison:** Four no-code platforms for gating Solana SPL token communities. All read on-chain balances; they differ in target platform, rule complexity, and ecosystem integrations.
+**Token-Gating Platform Comparison:** Collab.Land and Matrica, the two live no-code platforms for gating Solana SPL token communities. Both read on-chain balances; they differ in rule complexity, pricing, and ecosystem integrations.
 :::
 
 Each platform follows the same pattern:
@@ -209,7 +205,7 @@ There are three standard approaches to this problem:
 
 **Fixed token price** — You always charge 500 tokens regardless of the token's market value. This is simple but creates wild swings in your dollar revenue. It works if you primarily care about token circulation rather than consistent revenue.
 
-**Dollar-denominated price, token payment** — You price services in dollars (e.g., \$50) and then calculate the token equivalent at the moment of payment using a price oracle. The customer always pays the dollar equivalent. This protects your revenue but requires real-time price data.
+**Dollar-denominated price, token payment** — You price services in dollars (e.g., \$50) and then calculate the token equivalent at the moment of payment using a price oracle. The customer always pays the dollar equivalent. This protects your revenue but requires real-time price data — using a price oracle such as Pyth (Chapter 5, *Oracles*).
 
 **Hybrid: fixed token, dollar floor** — You charge a fixed number of tokens but require a minimum dollar equivalent. If the token's value drops below a floor, you adjust the token price. Protects against severe downside while still using tokens as the primary unit.
 
@@ -233,6 +229,27 @@ This question gets to the heart of token utility design. If you convert immediat
 Yes — because the demand event is real. Every time a customer purchases tokens on the open market to pay for your service, they are adding buying pressure to the token's price. If 100 customers each buy 500 tokens per month to access your service, that is 50,000 tokens of monthly buying pressure, regardless of what you do with the tokens afterward. The market does not know or care that you sold them five minutes after receiving them. It only sees 50,000 tokens of demand.
 
 The mechanism creates a **demand floor**: as long as your service is desirable and priced in your token, there is predictable, repeatable buying pressure supporting the token's market price. That floor is the economic value you are building.
+
+### The Rail: Solana Pay
+
+Everything above describes the economics of accepting your token. **Solana Pay** is the rail that actually moves it at a point of sale. It is an open payment specification — a URL and QR-code format that any Solana wallet can read:
+
+```
+solana:<recipient>?amount=…&spl-token=<mint>&label=…
+```
+
+Encode a request like that into a QR code, and any customer with Phantom (or another Solana wallet) scans it and pays in SOL, USDC, or *your* SPL token, settling on-chain in under a second with no card network in between. This is the point-of-sale integration that Chapter 2's Starbucks-on-chain thought experiment and Chapter 8's loyalty check-in program both assume exists.
+
+It is not hypothetical infrastructure. Shopify has offered Solana Pay as a checkout option since 2023 (shopifydocs.solanapay.com), settling in USDC, and other commerce plugins exist. In practice, this connects directly to Chapter 5's stablecoin discussion: most merchants request USDC — the stable unit of account — and let customers pay from any token they hold via a swap in the wallet. The customer spends your token; the merchant receives dollars; the demand event still happened.
+
+:::{figure} ../images/ch07-solana-pay-qr-flow.png
+:label: fig-ch07-solana-pay
+:alt: Flow diagram of a Solana Pay transaction — merchant encodes a payment request URL into a QR code, customer scans it with Phantom mobile, approves, and tokens settle on-chain to the merchant wallet in under a second
+:width: 80%
+:align: center
+
+**The Solana Pay Flow:** A payment request URL becomes a QR code; the customer scans and approves in their wallet; settlement is on-chain in under a second, with no card network between buyer and seller.
+:::
 
 ---
 
@@ -261,7 +278,7 @@ What blockchain adds is *structural*, not experiential:
 
 **Transferability** — You cannot sell your airline status. You cannot give your hotel points to your business partner's account without complex workarounds. Token-based status transfers with the wallet. This creates secondary markets for access — which sounds strange until you realize it means community membership has genuine market value.
 
-The honest limitation is that traditional loyalty programs have one massive advantage: the infrastructure works at scale, is familiar to consumers, and is integrated into booking flows, POS systems, and customer service workflows that have been refined over 30 years. Token-gating is still early. The UX gaps are real. Building for token utility today means accepting some friction that traditional programs have already solved — in exchange for structural properties that traditional programs can never offer.
+The honest limitation is that traditional loyalty programs have one massive advantage: the infrastructure works at scale, is familiar to consumers, and is integrated into booking flows, POS systems, and customer service workflows that have been refined over 30 years. Token-gating is still early. The UX gaps are real. Building for token utility today means accepting some friction that traditional programs have already solved — in exchange for structural properties that traditional programs can never offer. That said, embedded wallets and passkey sign-in (Chapter 1) are closing the connect-wallet gap. The 2026 pattern is that the customer never sees a seed phrase and the token lives in a wallet created by the app.
 
 :::{admonition} The Maturity Curve
 :class: seealso
@@ -314,17 +331,19 @@ This is where the chapter becomes real. You are going to build one actual token 
 
 No code required. Just configuration.
 
+### Part 1 — Build the Gate
+
 ### Choosing Your Platform
 
 You have two primary options:
 
-**Discord with Holder.xyz** — Best choice if your classmates are already on Discord. Free tier available, clean UI, automatic role management.
+**Discord with Collab.Land** — free for small servers, Solana supported, the most widely used gating bot.
 
-**Telegram with Matrica or Collabland** — Better for mobile-first communities. Matrica supports Solana natively. Slightly more configuration overhead.
+**Telegram with Matrica** — Better for mobile-first communities. Matrica supports Solana natively. Slightly more configuration overhead.
 
-We will walk through the Discord + Holder.xyz path in detail. The Telegram setup is structurally identical — the platform documentation covers the differences.
+We will walk through the Discord + Collab.Land path in detail. The Telegram setup is structurally identical — the platform documentation covers the differences.
 
-### Step-by-Step: Discord Token Gating with Holder.xyz
+### Step-by-Step: Discord Token Gating with Collab.Land
 
 **Phase 1: Prepare Your Discord Server**
 
@@ -333,23 +352,17 @@ We will walk through the Discord + Holder.xyz path in detail. The Telegram setup
 3. Create a new role called `Token Holder`. Give this role access to `#holders-only`. Remove @everyone's access to that channel.
 4. Test that an account without the `Token Holder` role cannot see `#holders-only`. If they can, the permissions are not set correctly.
 
-**Phase 2: Configure Holder.xyz**
+**Phase 2: Configure Collab.Land**
 
-1. Go to [holder.xyz](https://holder.xyz) and sign in with your Discord account.
-2. Click "Add Server" and authorize Holder's bot to join your Discord server. Grant the permissions it requests — it needs to read member lists and assign roles.
-3. In the Holder dashboard, click "Create Rule."
-4. Set the following:
-   - **Network:** Solana
-   - **Token Type:** SPL Token (fungible)
-   - **Token Address:** paste your token's mint address (from Chapter 3)
-   - **Minimum Balance:** set your threshold (start with 10 tokens for testing)
-   - **Role to Assign:** Token Holder
-5. Save the rule.
+1. Go to [collab.land](https://collab.land) → **Add to Discord**, choose your server, and authorize the bot (it needs Manage Roles and Read Members). The bot posts a **Let's Go** verification button in a `#collabland-join` channel it creates.
+2. Open the Collab.Land **Command Center** ([cc.collab.land](https://cc.collab.land)), sign in with Discord, select your server.
+3. Click **TGRs** → **Add TGR**. Set: **Chain:** Solana · **Token type:** SPL fungible token · **Token address:** your Chapter 3 mint address · **Min balance:** 10 (for testing) · **Role:** Token Holder. Save.
+4. In Discord, drag the **Collab.Land** bot role above the **Token Holder** role in Server Settings → Roles, or the bot cannot assign it.
 
 **Phase 3: Verify the Gate Works**
 
 1. Share your server invite link with a classmate who holds your token (above the minimum).
-2. Have them go to holder.xyz, connect their wallet, and verify their holding. The Token Holder role should be assigned automatically.
+2. Have them click **Let's Go** in `#collabland-join`, choose **Phantom**, and sign the verification message. The Token Holder role is assigned within a minute.
 3. Confirm they can see and post in `#holders-only`.
 4. Share the server invite with a classmate who does NOT hold your token.
 5. Have them attempt to verify — they should receive a message that their balance is insufficient.
@@ -358,7 +371,7 @@ We will walk through the Discord + Holder.xyz path in detail. The Telegram setup
 **Phase 4: Document the Proof**
 
 Take screenshots of:
-- The Holder.xyz rule configuration screen
+- The Collab.Land TGR configuration screen
 - A successful verification (holder gaining access)
 - A failed verification (non-holder denied)
 - The `#holders-only` channel visible to the holder but not to the non-holder
@@ -367,11 +380,11 @@ Write a one-paragraph description of your setup: what token, what threshold, wha
 
 :::{figure} ../images/ch07-holder-setup.png
 :label: fig-ch07-holder-setup
-:alt: Screenshot-style diagram showing the Holder.xyz dashboard configuration with SPL token address, minimum balance field, role assignment, and Discord channel permission setup
+:alt: Screenshot-style diagram showing the Collab.Land Command Center TGR configuration with SPL token address, minimum balance field, role assignment, and Discord channel permission setup
 :width: 80%
 :align: center
 
-**Holder.xyz Configuration Walkthrough:** The dashboard connects your token's mint address to a Discord role and sets the minimum balance threshold. The bot handles all on-chain verification and role management automatically.
+**Collab.Land Configuration Walkthrough:** The Command Center connects your token's mint address to a Discord role and sets the minimum balance threshold. The bot handles all on-chain verification and role management automatically.
 :::
 
 ### Telegram Alternative: Matrica Setup
@@ -384,6 +397,13 @@ If your community is Telegram-based, the flow is equivalent:
 4. Members below the threshold are restricted from posting or are automatically removed from the group, depending on your settings.
 
 The gating logic is identical. Only the interface differs.
+
+### Part 2 — Get Paid in Your Token (15 min)
+
+1. Construct a Solana Pay request for your token: `solana:<your primary wallet address>?amount=5&spl-token=<your mint address>&label=<YourToken>%20Coffee&message=Thanks`.
+2. Turn it into a QR code with any QR generator, or paste the URL into a classmate's phone.
+3. The classmate opens Phantom mobile → scan → approves. Confirm the 5 tokens arrived (Solscan).
+4. Repeat with `spl-token=EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v` (USDC) and `amount=0.01`. Write two sentences: which of the three pricing approaches in this chapter did each request implement, and which would a real shop use?
 
 ---
 
@@ -445,11 +465,8 @@ consumption sink
 engagement loop
   The cyclical pattern of token behavior: earn tokens through participation, hold them for access benefits, spend them on services or governance, and earn again. A well-designed loop keeps holders active and reduces token leakage.
 
-Holder.xyz
-  A no-code token-gating platform that integrates with Discord. Supports Solana SPL tokens and automates role assignment and revocation based on on-chain wallet balances.
-
-Grape Protocol
-  A Solana-native community infrastructure tool that enables token-gated Discord server access based on SPL token holdings, NFT ownership, or combinations of both.
+Collab.Land
+  The most widely used token-gating bot for Discord and Telegram; on Solana it verifies SPL token balances and NFT holdings and assigns roles automatically.
 
 SPL token
   A fungible token built on Solana's Token Program. The Solana equivalent of an ERC-20 token on Ethereum. SPL tokens are the standard token type used for token-gating on Solana.
@@ -468,6 +485,9 @@ role (Discord)
 
 portability (token benefits)
   The property of token-based benefits that allows them to transfer with the wallet rather than being tied to a user account controlled by a company. Token-based loyalty benefits are owned by the holder, not the platform.
+
+Solana Pay
+  An open payment specification: a URL and QR-code format (`solana:<recipient>?amount=…&spl-token=<mint>&label=…`) that any Solana wallet can scan to pay in SOL, USDC, or any SPL token, settling on-chain in under a second with no card network.
 ```
 
 ---
@@ -476,10 +496,9 @@ portability (token benefits)
 
 | Tool | Purpose | URL |
 |------|---------|-----|
-| **Holder.xyz** | Discord token-gating for Solana SPL tokens | holder.xyz |
-| **Grape Protocol** | Solana community infrastructure, Discord gating | grapes.finance |
-| **Guild.xyz** | Multi-chain token-gating with complex logic gates | guild.xyz |
+| **Collab.Land** | Discord and Telegram token-gating for Solana | collab.land |
 | **Matrica** | Solana-native Discord and Telegram gating | matrica.io |
-| **Collabland** | Multi-chain bot for Telegram token-gating | collab.land |
 | **Phantom** | Solana wallet — used for member verification | phantom.com |
 | **Solana Explorer** | Verify token mint address and holder balances | explorer.solana.com |
+
+<!-- NEW IMAGES NEEDED: ch07-solana-pay-qr-flow.png (Solana Pay QR payment flow — request URL to QR code to Phantom mobile scan to on-chain settlement); ch07-gating-platforms.png (UPDATE existing image: comparison grid now shows only Collab.Land and Matrica); ch07-holder-setup.png (UPDATE existing image: Collab.Land Command Center TGR configuration instead of Holder.xyz dashboard) -->

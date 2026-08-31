@@ -218,7 +218,28 @@ Total Cost = (Token FMV × Total Tokens Distributed)
            + (Rent-exempt deposit × New token accounts created)
 ```
 
-The **rent-exempt deposit** requires explanation. On Solana, every account must hold a minimum SOL balance to be rent-exempt. A token account (the account that holds a specific SPL token for a specific wallet) requires approximately 0.002 SOL. If you are airdropping to wallets that have never held your token before, you must fund the creation of their token accounts — which costs ~\$0.50 per new account at current SOL prices. For 10,000 new recipients, this adds approximately \$5,000 to your distribution cost. Factor this into your CPA calculation.
+The **rent-exempt deposit** requires explanation. On Solana, every account must hold a minimum SOL balance to be rent-exempt. A token account (the account that holds a specific SPL token for a specific wallet) requires approximately 0.002 SOL. If you are airdropping to wallets that have never held your token before, you must fund the creation of their token accounts — which costs ~\$0.20 per new account at SOL ≈ \$100. For 10,000 new recipients, this adds approximately \$2,000 to your distribution cost. Factor this into your CPA calculation.
+
+:::{admonition} The Tax Line Nobody Budgets
+:class: warning
+
+Distribution has a tax dimension that almost no first-time issuer budgets for. The framing below is U.S. law; your jurisdiction differs, but the categories are broadly the same — check with a tax professional before any real distribution.
+
+**For recipients:** an airdrop received is ordinary income at the token's fair market value on the date of receipt — this has been IRS guidance since 2019 (see {term}`Fair Market Value (FMV)` in the glossary). Streaming payments and vesting releases to contributors are compensation, taxable when received, not when the stream was created. And adding or removing liquidity and swapping one token for another are generally taxable events in their own right.
+
+**For reporting:** brokers now report digital-asset transactions to the IRS on **Form 1099-DA**, so the assumption that token activity is invisible is no longer even superficially true.
+
+**For you, the issuer:** if you are paying contractors in tokens, you have the same reporting duties as if you paid them in dollars. The vesting stream in this chapter's lab is, in a real deployment, a payroll event. Budget for the paperwork alongside the rent-exempt deposits — and see Chapter 12's launch checklist, which now carries this as a pre-launch line item.
+:::
+
+:::{figure} ../images/ch06-tax-events.png
+:label: fig-ch06-tax-events
+:alt: Diagram mapping token distribution events — airdrop receipt, vesting release, streaming withdrawal, swap, and liquidity add or remove — to their U.S. tax treatment as ordinary income, compensation, or capital gain events, with Form 1099-DA reporting flow
+:width: 80%
+:align: center
+
+**Taxable Events in Token Distribution:** Airdrops are income at fair market value on receipt; vesting and streaming releases are compensation when received; swaps and liquidity changes are generally taxable events. Brokers report on Form 1099-DA.
+:::
 
 ---
 
@@ -257,6 +278,10 @@ Every allocation category should have a corresponding on-chain vesting contract 
 
 ## Hands-On Lab: Put Tokens in Other People's Hands
 
+:::{note}
+This lab runs on devnet because you will be sending tokens to many wallets and testing cancellation. Your Chapter 3 token exists only on mainnet. Mint a throwaway devnet token first (Chapter 3, Step 3b, or any creator switched to devnet) and use it for every step below.
+:::
+
 This lab has three components: setting up a vesting stream for a hypothetical co-founder, executing a bulk airdrop to classmates' wallets, and computing your cost per holder.
 
 **What you need before starting:**
@@ -287,6 +312,7 @@ This lab has three components: setting up a vesting stream for a hypothetical co
    - **Release frequency:** Every second (continuous)
 5. Click **Create Stream** and approve the transaction in Phantom
 6. Note the stream URL — share it with your "co-founder" so they can see their vesting schedule
+7. After the cliff, have the recipient withdraw once. Then, as the sender, **cancel** the stream. Record what returned to you and what stayed with the recipient. This is the clawback right from the Streaming Payments section, demonstrated.
 
 After the cliff period, your recipient can connect their wallet to Streamflow and withdraw whatever has streamed. Watch the accumulated balance tick upward in real time.
 
@@ -324,6 +350,11 @@ Fill in this table with your actual numbers:
 | **Cost per holder** | **\_\_\_\_\_** |
 
 If you distributed tokens to holders who were already holding your token (from previous labs), note the difference between **new** holders and **existing** holders. Only new holders count as acquisitions in your CPA calculation.
+
+### Part 4: Sybil-Test Your Own Airdrop (10 min)
+
+1. Create a third Phantom account. Attempt to claim/receive the same airdrop with it (re-run the CSV with the new address added).
+2. It works — nothing stopped you. Write three sentences: which of the four Sybil defenses from the chapter would have stopped this, what it would have cost you to implement, and what it would cost a legitimate classmate in friction.
 
 ---
 
@@ -414,6 +445,12 @@ Linear Vesting
 
 Treasury Multisig
   A multi-signature wallet controlling a project's treasury funds, requiring approval from multiple keyholders before funds can be moved. Standard governance infrastructure for decentralized protocols.
+
+Taxable Event
+  Any transaction that triggers a tax obligation. In U.S. treatment, receiving an airdrop, receiving vested or streamed tokens as compensation, swapping tokens, and adding or removing liquidity are generally taxable events.
+
+Form 1099-DA
+  The U.S. IRS information return on which brokers report customers' digital-asset transactions, analogous to the 1099-B for securities. Its existence means on-chain activity is reported to tax authorities, not merely visible on the ledger.
 ```
 
 ---
@@ -429,3 +466,5 @@ Treasury Multisig
 - **Solana's fee structure enables mass distribution.** The economics that make broad airdrops viable on Solana do not exist on most other chains.
 - **Allocation tables are market signals.** The structure of your token distribution — who gets what, when, with what lock conditions — tells the market who you are and what you intend.
 :::
+
+<!-- NEW IMAGES NEEDED: ch06-tax-events.png (diagram mapping distribution events — airdrop receipt, vesting release, streaming withdrawal, swap, liquidity add/remove — to their U.S. tax treatment, with Form 1099-DA reporting flow) -->

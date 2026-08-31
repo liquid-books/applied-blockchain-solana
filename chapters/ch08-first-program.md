@@ -94,6 +94,27 @@ Open any transaction on [explorer.solana.com](https://explorer.solana.com) and y
 
 ---
 
+## How a Program Holds Your Token: PDAs and CPI
+
+Two more concepts complete the picture of how programs interact with tokens — and both have been operating behind the scenes of everything you built in earlier chapters.
+
+**Program Derived Address (PDA).** A PDA is an address computed from the program's ID plus some chosen seeds — and here is the crucial property: *no private key exists for it*. Nobody holds the key, because there is no key. Only the program that derived the address can sign for it. This is how a vesting contract (Chapter 6), a liquidity pool (Chapter 5), a multisig vault (Chapter 11), or an escrow "holds" tokens: the tokens sit in a token account owned by a PDA, and the program's rules are the only mechanism by which they can ever move. Think of it as a safe with no key — only a rulebook bolted to the door. When Streamflow locked your vesting tokens, this is where they went: not into a founder's wallet, but into an account only the vesting program's logic can release.
+
+**Cross-Program Invocation (CPI).** A CPI is a program calling another program. Your check-in program does not reinvent token transfers; if it needed to move tokens, it would call the SPL Token program's `transfer` or `mint_to` instruction, signing as its PDA. Every DeFi "money lego" from Chapter 5 is CPI in action: Jupiter calls Raydium; Kamino calls the Token program; Realms executes a passed proposal by CPI. Composability is not a metaphor — it is programs invoking each other's instructions in a single atomic transaction.
+
+What this means for your evaluation checklist in *Reading, Not Writing, Code* below: add a sixth step — *which programs does this program call, and does it hold assets in PDAs or in a human's wallet?* A protocol whose "vault" is a wallet with a private key is one compromised laptop away from losing everything. A protocol whose vault is a PDA is exactly as safe as its code.
+
+:::{figure} ../images/ch08-pda-and-cpi.png
+:label: fig-ch08-pda-cpi
+:alt: Two-panel diagram — left panel shows a Program Derived Address as a keyless safe holding a token account, controlled only by program logic; right panel shows Cross-Program Invocation as one program calling the SPL Token program's transfer instruction, signing as its PDA
+:width: 80%
+:align: center
+
+**PDAs and CPI:** A Program Derived Address is an account with no private key — only the deriving program can sign for it (left). Cross-Program Invocation is one program calling another's instructions, the mechanism behind every "money lego" (right).
+:::
+
+---
+
 ## "Code Is Law": The Promise and the Warning
 
 The phrase **code is law** is the oldest and most contentious slogan in blockchain culture. It means exactly what it sounds like: the rules encoded in a smart program are the governing authority. Not a CEO's decision, not a regulator's ruling, not a court order, not a change of heart. The code runs as written.
@@ -192,6 +213,21 @@ Here is the checklist:
 
 **5. Review the audit reports.** Reputable programs have been audited by firms like Halborn, OtterSec, Trail of Bits, or Neodyme. Audit reports identify vulnerabilities found and whether they were resolved. No audit means no one has professionally searched for ways to exploit this code.
 
+:::{admonition} What Auditors Actually Look For
+:class: important
+
+Six vulnerability classes account for most Solana exploits:
+
+- **Missing signer check** — an instruction that should require an owner's signature doesn't.
+- **Missing owner check** — the program trusts an account without verifying which program owns it.
+- **Account type confusion** — passing one kind of account where another was expected.
+- **Arithmetic overflow/underflow** — a balance wraps around.
+- **Arbitrary CPI** — the program calls whatever program address the caller supplies.
+- **Closed-account revival** — an account closed for rent refund is reopened with stale data.
+
+Anchor's `#[account(...)]` constraints exist to prevent most of these, which is why "built with Anchor" is a (weak) positive signal. Public checklists of these patterns exist from Solana auditing firms — Neodyme's "Sealevel attacks" is the standard reference.
+:::
+
 This process takes an hour and requires no coding. For any protocol where you or your organization plans to hold significant funds, it is due diligence.
 
 ---
@@ -223,6 +259,76 @@ You will see three files:
 - `lib.rs` — the program logic (Rust + Anchor)
 - `Anchor.toml` — project configuration
 - `tests/counter.test.ts` — the test file
+
+Here is the full `lib.rs`, annotated for a business reader. The comments are yours to read; the code compiles unchanged.
+
+```rust
+use anchor_lang::prelude::*;
+
+// This is the Program ID — the program's public address on the network.
+// Solana Playground replaces it with YOUR program's address when you deploy.
+// This is the address an investor looks up on Solana Explorer (Step 8).
+declare_id!("11111111111111111111111111111111");
+
+// The #[program] module is the instruction list — the program's complete
+// capability set. This is the checklist from "Reading, Not Writing, Code"
+// step 3: each pub fn below is one instruction, and if a function is not
+// listed here, the program cannot do it.
+#[program]
+pub mod counter {
+    use super::*;
+
+    // Instruction 1: create the data account and set the count to zero.
+    // "ctx" carries the list of accounts this instruction is allowed to touch.
+    pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
+        let counter = &mut ctx.accounts.counter;
+        counter.count = 0; // the starting state, written into the account
+        Ok(())
+    }
+
+    // Instruction 2: add one to the count. This is your "check-in."
+    pub fn increment(ctx: Context<Increment>) -> Result<()> {
+        let counter = &mut ctx.accounts.counter;
+        counter.count += 1;
+        Ok(())
+    }
+}
+
+// Every instruction must declare, up front, every account it will read or
+// write. These #[derive(Accounts)] structs ARE those declarations — the
+// account list you see under "Account Inputs" on Solana Explorer.
+#[derive(Accounts)]
+pub struct Initialize<'info> {
+    // "init" = a new data account is created here. "payer = user" = the
+    // signer pays the rent-exempt deposit (the same rent from Chapter 3).
+    // "space" = how many bytes the account reserves for its data.
+    #[account(init, payer = user, space = 8 + 8)]
+    pub counter: Account<'info, Counter>,
+    // Signer = who must sign. This wallet authorizes the transaction and
+    // pays for the new account. No signature, no execution.
+    #[account(mut)]
+    pub user: Signer<'info>,
+    // The System Program is Solana's built-in program that creates accounts.
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct Increment<'info> {
+    // "mut" = this instruction will modify the counter account's data.
+    #[account(mut)]
+    pub counter: Account<'info, Counter>,
+    pub user: Signer<'info>,
+}
+
+// This is the state — and notice it lives in its OWN struct, stored in a
+// data account, not inside the program. The program above is stateless;
+// this account holds the number. That separation is the chapter's central
+// idea, in eight bytes.
+#[account]
+pub struct Counter {
+    pub count: u64, // an unsigned 64-bit integer: the check-in count
+}
+```
 
 ### Step 3: Rename It as Your Check-In Program
 
@@ -286,9 +392,12 @@ Navigate to [explorer.solana.com](https://explorer.solana.com) and switch the ne
 
 This is what your program looks like from the outside. This is what an investor, user, or auditor sees when they look up your protocol.
 
-### Stretch Activity: Add a Decrement Instruction
+### Stretch Activity — Make the Program Touch a Token (30 min, devnet)
 
-If you are comfortable with the code, try adding a `decrement` instruction using `increment` as a template. The only change needed is replacing `+= 1` with `-= 1`. Rebuild and redeploy. Run decrement and verify the count drops on Explorer.
+1. Solana Playground bundles the `solana` and `spl-token` command-line tools in its terminal (bottom panel) and the `anchor-spl` crate in its build system. Create a throwaway devnet token there: `spl-token create-token`, then `spl-token create-account <MINT>`, then `spl-token mint <MINT> 100`. Record the mint address.
+2. Gate the check-in: add to the `Increment` accounts struct a `token_account: Account<'info, TokenAccount>` with an Anchor constraint requiring `token_account.owner == user.key()` and `token_account.amount >= 1`, and import `anchor_spl::token::TokenAccount`. Rebuild and redeploy.
+3. In the Test panel, run `increment` passing your token account. It succeeds. Run it passing an empty token account (create one with `spl-token create-account` for a second mint, or an account with 0 balance). It fails with a constraint error. Screenshot both transactions on Solana Explorer.
+4. Write three sentences: which vulnerability class from the auditor box would you have introduced by omitting the `owner` constraint, and what could an attacker have done?
 
 Students who do not wish to modify code: the deploy-and-test loop above, with the template unchanged, is the complete activity. You have deployed a real program.
 
@@ -380,7 +489,7 @@ Program ID
   A base58-encoded public key that uniquely identifies a deployed program on the Solana network. Used to call the program's instructions and to find it on Solana Explorer.
 
 BPF (Berkeley Packet Filter)
-  The virtual machine format that Solana uses to execute programs. Program code is compiled to BPF bytecode, which the Solana runtime executes on every validator.
+  The virtual machine format that Solana uses to execute programs. Program code is compiled to BPF bytecode, which the Solana runtime executes on every validator. Solana's runtime has since moved to SBF (Solana Bytecode Format), a fork of eBPF; the concept is unchanged.
 
 Data Account
   An account created by a program to store state. When you call `initialize` in today's activity, you create a data account that holds the check-in counter value.
@@ -471,3 +580,5 @@ Consider these angles as you write:
 - What legal jurisdictions have begun regulating smart contracts as binding agreements? How does upgrade authority interact with contract law?
 - The DAO hack in 2016 and the subsequent Ethereum fork: was the fork a violation of code-is-law? What precedent did it set?
 - Are there domains — real estate title records, medical consents, pension rules — where permanent, auditable, unalterable records are not just acceptable but desirable?
+
+<!-- NEW IMAGES NEEDED: ch08-pda-and-cpi.png (two-panel diagram: PDA as keyless safe holding a token account; CPI as one program calling the SPL Token program, signing as its PDA); ch08-annotated-lib-rs.png (annotated Counter lib.rs highlighting declare_id!, the #[program] instruction list, Accounts structs, Signer, init/payer/space, and the Counter state struct); ch08-vulnerability-classes.png (the six auditor vulnerability classes — missing signer check, missing owner check, account type confusion, arithmetic overflow, arbitrary CPI, closed-account revival) -->

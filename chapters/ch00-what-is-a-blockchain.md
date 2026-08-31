@@ -65,7 +65,7 @@ This arrangement works well enough — until it does not.
 
 The centralized ledger has three failure modes. They are not hypothetical. They happen regularly, at significant cost, across every industry.
 
-**Failure Mode 1: The Keeper Disappears.** In 2001, Enron's accountants did not disappear — but their ledgers effectively did. Seven hundred billion dollars in shareholder value evaporated because the keepers of the records were also falsifying the records. This is not unique to Enron. It happens to small businesses when the only person with database access leaves without transition. It happens to governments when regimes change and archives are destroyed. It happens when a startup folds and its cloud subscription lapses. Centralized records are as permanent as the institution keeping them, and institutions are more fragile than we acknowledge.
+**Failure Mode 1: The Keeper Disappears.** In 2001, Enron's accountants did not disappear — but their ledgers effectively did. Roughly \$74 billion in shareholder value evaporated because the keepers of the records were also falsifying the records. This is not unique to Enron. It happens to small businesses when the only person with database access leaves without transition. It happens to governments when regimes change and archives are destroyed. It happens when a startup folds and its cloud subscription lapses. Centralized records are as permanent as the institution keeping them, and institutions are more fragile than we acknowledge.
 
 **Failure Mode 2: The Keeper Edits Pages.** This is the subtler danger. A single authoritative record that can be changed unilaterally — with no automatic trail, no external verification — is an invitation to manipulation. Title fraud costs American property owners an estimated \$1 billion per year. Medical record errors affect 80 million Americans. Supply chain fraud — false certifications, phantom shipments, counterfeit goods — costs the global economy hundreds of billions of dollars annually. In each case, someone with write access to a centralized ledger quietly edited the pages.
 
@@ -141,7 +141,7 @@ The five hundred villagers with notebooks need a procedure for agreeing on which
 
 Different blockchains use different consensus mechanisms. The original Bitcoin uses **Proof of Work**, in which nodes compete to solve a computational puzzle, and the winner gets to add the next block. This is famously energy-intensive, because millions of computers are running the same computation simultaneously.
 
-Solana, which we will use in this course, uses **Proof of History** combined with **Proof of Stake**. The details are technical, but the key intuition is this: rather than competing with energy, nodes in Proof of Stake systems put up collateral (staked tokens). If they validate fraudulent transactions, they lose their stake. Economic punishment replaces computational competition, which is why Solana can process 65,000 transactions per second and complete them in 400 milliseconds — while consuming a fraction of Bitcoin's energy.
+Solana, which we will use in this course, uses **Proof of History** combined with **Proof of Stake**. The details are technical, but the key intuition is this: rather than competing with energy, nodes in Proof of Stake systems put up collateral (staked tokens). If they validate fraudulent transactions, they lose their stake. Economic punishment replaces computational competition, which is why Solana can process a theoretical ceiling of 65,000 transactions per second (sustained real-world throughput is in the low thousands) and complete them in 400 milliseconds — while consuming a fraction of Bitcoin's energy.
 
 :::{figure} ../images/ch00-consensus-comparison.png
 :label: fig-ch00-consensus-comparison
@@ -164,6 +164,8 @@ The consensus mechanism is what makes the network **trustless** — meaning you 
 :class: seealso
 
 Bitcoin and Solana are not the only answers. Different blockchains make different consensus tradeoffs. Cardano uses a peer-reviewed Proof of Stake protocol emphasizing formal verification; IOTA takes a radically different approach using a Directed Acyclic Graph (DAG) instead of a traditional chain. Watching both explainers below gives you a broader map of the design space.
+
+Because these networks are separate ledgers, moving value between them requires a **bridge**: assets are locked on chain A, and a "wrapped" representation is minted on chain B that can be redeemed by reversing the process. Bridges therefore hold enormous pooled value in their lock-up contracts, which is why they have been the site of the industry's largest hacks — Wormhole lost roughly \$320 million in 2022, and the Ronin bridge lost over \$600 million the same year. Wormhole is Solana's primary bridge to other chains. Chapter 12's threat landscape returns to bridge risk as part of your attack surface.
 :::
 
 **▶ Watch: Cardano — Simply Explained (8 min)**
@@ -409,7 +411,7 @@ Each of these institutions is valuable. Each also extracts a rent — in fees, i
 
 Blockchain technology is not a technology story first. It is a property rights story. It is an economic architecture story. When ownership can be proven by a cryptographic key — not by a document in a file in an office in a county courthouse — the concept of who can own what, who can transfer what, and who can verify what changes fundamentally.
 
-In the United States today, approximately 1.8 billion adults globally lack access to formal banking. Not because they lack money or economic activity — but because the institutional infrastructure for ownership and credit does not exist in their communities, or actively excludes them. A blockchain-based financial system needs only a smartphone and an internet connection. It does not need a branch office, a Social Security number, a credit history, or the discretion of a loan officer.
+Globally, about 1.4 billion adults lack access to formal banking (World Bank Global Findex). Not because they lack money or economic activity — but because the institutional infrastructure for ownership and credit does not exist in their communities, or actively excludes them. A blockchain-based financial system needs only a smartphone and an internet connection. It does not need a branch office, a Social Security number, a credit history, or the discretion of a loan officer.
 
 This is not utopian speculation. It is an application of the exact technology we have just described. In countries with unstable currencies — Venezuela, Lebanon, Argentina, Zimbabwe — citizens are using Solana-based stable coins to hold value that their national banking systems cannot protect. The value is in the wallet. The key is in their hands.
 
@@ -425,7 +427,7 @@ This is not utopian speculation. It is an application of the exact technology we
 :width: 80%
 :align: center
 
-**The Stakes Are Global:** 1.8 billion adults lack formal banking access. Blockchain-based financial systems require only a smartphone — no branch office, no credit history, no institutional permission. This is what trustless ownership means in practice.
+**The Stakes Are Global:** About 1.4 billion adults lack formal banking access. Blockchain-based financial systems require only a smartphone — no branch office, no credit history, no institutional permission. This is what trustless ownership means in practice.
 :::
 
 ---
@@ -447,6 +449,57 @@ Let us consolidate what we have covered:
 
 5. **The stakes are enormous.** The institutional friction that blockchains remove is not just inconvenience — it is exclusion. Trustless ownership is not just a technical feature; it is a different theory of economic participation.
 :::
+
+---
+
+## 🔬 Hands-On Lab: See a Blockchain Work (30 minutes)
+
+Before the NAAT canvas, you will manipulate a hash, break a chain, and watch two live networks produce blocks. No wallet needed — just a browser.
+
+### Part 1 — Hashes (5 min)
+
+1. Open `https://andersbrownworth.com/blockchain/hash`.
+2. Type your full name in the Data box. Copy the 64-character hash into your notes.
+3. Change one letter of your name. Observe the entire hash change. Record the new hash.
+4. Paste a paragraph of any length. Observe the hash is still 64 characters.
+5. Write one sentence: why can't you work backwards from the hash to the paragraph?
+
+### Part 2 — A block (5 min)
+
+1. Open `https://andersbrownworth.com/blockchain/block`.
+2. Type any data. Notice the block shows red (invalid) because the hash does not start with the required zeros.
+3. Click **Mine**. Watch the Nonce field count up until a valid hash is found. Record the nonce.
+4. Change one character of the data. The block turns red again. This is why editing a block requires re-mining it.
+
+### Part 3 — Break a chain (10 min)
+
+1. Open `https://andersbrownworth.com/blockchain/blockchain`. Five linked blocks appear, all green.
+2. Edit the data in Block 2. Observe Blocks 2, 3, 4, and 5 all turn red — every later block contains Block 2's old hash.
+3. Click **Mine** on Block 2. It turns green; 3, 4, 5 stay red. Mine each one in order until the chain is green again. Count how many mines it took.
+4. Write one sentence: on a real network with thousands of nodes adding new blocks every 400 ms, why can an attacker never finish this catch-up?
+
+### Part 4 — Distributed copies (5 min)
+
+1. Open `https://andersbrownworth.com/blockchain/distributed`. Three peers (A, B, C) each hold an identical chain.
+2. Edit Block 3 on Peer B and re-mine it and every block after it until Peer B's chain is fully green.
+3. Compare the final hash of Block 5 on Peer B to Peer A and Peer C. They differ. Write one sentence: how do A and C know B is lying?
+
+### Part 5 — Two live networks (5 min)
+
+1. Open `https://mempool.space`. Watch the block row at the top. Note the time since the last Bitcoin block and the average block interval (~10 min). Note the fee estimates in sat/vB.
+2. Open `https://explorer.solana.com` and click **Live Cluster Stats** (or observe the stats panel on the home page). Note the current slot number, transactions per second, and the block time (~400 ms). Wait 10 seconds and note how many slots advanced.
+3. Click any recent Solana block. Note the number of transactions in it and the "Block Hash" and "Parent Block Hash" fields — this is Part 3, live.
+
+:::{figure} ../images/ch00-live-networks.png
+:label: fig-ch00-live-networks
+:alt: Side-by-side view of mempool.space showing Bitcoin blocks arriving roughly every ten minutes and the Solana explorer showing slots advancing every 400 milliseconds
+:width: 80%
+:align: center
+
+**Two Live Networks:** Bitcoin (mempool.space) and Solana (explorer.solana.com) producing blocks in real time — the hash chain from Part 3, running live at two very different speeds.
+:::
+
+**Deliverable:** a one-page PDF with your four screenshots (hash, broken chain, peers disagreeing, Solana block with parent hash highlighted) and your four one-sentence answers.
 
 ---
 
@@ -592,7 +645,6 @@ Smart Contract
 
 Token
   A digital asset issued and tracked on a blockchain. Can represent currency, ownership, access rights, voting power, or virtually any other form of value. We design our first token in Chapter 2.
-
-Genesis Block
-  The first block in a blockchain — the origin of the entire chain.
 ```
+
+<!-- NEW IMAGES NEEDED: ch00-live-networks.png (mempool.space vs. Solana explorer side by side) -->

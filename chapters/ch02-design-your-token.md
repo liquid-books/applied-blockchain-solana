@@ -71,6 +71,8 @@ The risk with access tokens is over-issuance. If you create 1 billion tokens and
 
 **Real example:** Helium Mobile subscribers use MOBILE tokens to pay for wireless coverage. The token is not pretending to be general-purpose money. It is an access pass to a specific physical resource — cellular data — provided by a decentralized network of hardware operators. The business logic is clear: if you want coverage, you need the token. If you provide coverage, you earn the token.
 
+Helium is the archetype of a broader category: **DePIN** (decentralized physical infrastructure networks) — token economies in which participants earn tokens by supplying a physical resource the network needs. Helium's resource is wireless coverage; Hivemapper's is street-level mapping imagery captured by dashcams; other DePIN networks reward storage, compute, or sensor data. The access-token logic runs in both directions: consumers hold tokens to access the resource, and suppliers earn tokens for providing it. Both Helium and Hivemapper appear in this chapter's Hands-On Lab, where you will run the actor analysis on them yourself.
+
 ### Ownership
 
 An ownership token represents a fractional or full claim on an asset — a piece of real estate, a revenue stream, a company's future earnings, a piece of intellectual property. The holder's motivation for holding is the underlying asset's performance. The holder's motivation for selling is to realize gains or exit the position.
@@ -78,6 +80,12 @@ An ownership token represents a fractional or full claim on an asset — a piece
 Ownership tokens are the most legally fraught category because they closely resemble securities. A token that represents a right to future profits is, in most jurisdictions, a security — which means it is subject to securities law, registration requirements, and investor protection regulations. We will cover this in depth in Chapter 12. For now, understand that ownership tokens require the most legal diligence and the clearest answer to "what exactly does this token entitle me to?"
 
 The most interesting ownership tokens in 2025-2026 are real-world asset (RWA) tokens: fractional ownership of private credit, treasury bills, commercial real estate, and infrastructure assets. Tokenized private credit on Solana has grown to over \$400 million in assets under management, with Maple Finance and Credix running institutional-grade lending pools whose shares are on-chain tokens. These tokens represent specific, legally documented ownership claims — not speculative hope.
+
+:::{admonition} How a Real-World Asset Becomes a Token
+:class: note
+
+The pattern behind every legitimate RWA token has three parts. First, an off-chain legal entity — typically a special purpose vehicle (SPV) — holds the actual asset: the building, the loan portfolio, the Treasury bills. Second, the token is a claim on that entity, documented in its legal agreements, so holding the token means holding a legally enforceable interest — the blockchain records who holds the claim, but the law defines what the claim is. Third, transfer restrictions required by securities law (for example, accredited-investor-only resale) are enforced on-chain: the token is configured so that new accounts start frozen until the issuer verifies and thaws them, and the issuer retains the ability to claw back tokens under court order. Solana's Token-2022 extensions — *Default Account State (Frozen)* and *Permanent Delegate* — exist precisely for this (see Chapter 3, *Token-2022*); the exemptions that make such offerings legal are covered in Chapter 12.
+:::
 
 ### Reputation
 
@@ -346,6 +354,31 @@ That is a passing answer. It is specific, it is economic, and it does not depend
 
 ---
 
+## The Hardest Version of the Test: Memecoins
+
+There is a category of token that fails everything this chapter teaches and still, sometimes, succeeds: the **memecoin**. A memecoin is a token whose stated representation is none of the four — not payment, not access, not ownership, not reputation. Its value is attention. Solana has been the dominant chain for memecoins since 2023; BONK and WIF are the examples that persisted long enough to be studied rather than merely mourned.
+
+Run the actor table on a memecoin honestly and watch what happens. Reason to hold: expected price appreciation from more attention. Reason to spend: none. Token sink: none. It fails Failure Pattern 1 — "people will want it because it will go up in value" — by construction. And yet some succeed, for a while. The explanation is that attention is a real resource, just a perishable one. A memecoin is not a business; it is a coordination game — thousands of people simultaneously betting that other people will keep paying attention. As long as the attention flows, the game sustains itself. When the attention moves on, there is nothing underneath.
+
+What should a business student take from memecoins?
+
+1. **They are the purest demonstration that liquidity and distribution can exist with zero utility.** A memecoin at its peak has deep pools, tens of thousands of holders, and real trading volume — everything this book teaches you to build — attached to nothing. That is worth understanding: the market infrastructure and the value proposition are separable, and the infrastructure alone is not a business.
+2. **The ones that survive bolt utility on afterward.** BONK's integrations across Solana apps came after its distribution, not before. Utility after the fact is the exact reverse of this book's method — and the survival rate of that reversed path is very low.
+3. **The launch mechanics matter.** Most memecoins launch on bonding curves through launchpads; those mechanics — and what they reveal about rug pulls — are covered in Chapter 5, *Launchpads and Bonding Curves*.
+
+**Where the Analogy Breaks Down:** a memecoin is closer to a collectible than a currency — its price is set by scarcity of attention, not by any redemption or cash flow. Chapter 9's NFT lens often fits a memecoin better than this chapter's four categories do.
+
+:::{figure} ../images/ch02-memecoin-actor-table.png
+:label: fig-ch02-memecoin-actor-table
+:alt: An honestly completed actor table for a memecoin showing reason to hold as price appreciation from attention, reason to spend as none, and token sink as none, annotated as failing Failure Pattern 1 by construction
+:width: 80%
+:align: center
+
+**The Memecoin Actor Table:** Run honestly, every cell that should contain an economic reason contains only attention. It fails the test by construction — and some still succeed for a while, because attention is a real, if perishable, resource.
+:::
+
+---
+
 ## Activity: Write Your Token Brief
 
 :::{figure} ../images/ch02-token-brief-template.png
@@ -450,33 +483,55 @@ These five deliverables are the inputs to Chapter 3. Chapter 3 will take them ex
 
 ## Glossary
 
-**Burn** — The permanent destruction of tokens, removing them from circulating supply. Burning is typically accomplished by sending tokens to an address for which no private key exists (making them unspendable).
+```{glossary}
+Burn
+  The permanent destruction of tokens, removing them from circulating supply. Burning is typically accomplished by sending tokens to an address for which no private key exists (making them unspendable).
 
-**Deflationary Token** — A token design where the total supply decreases over time, typically through burn mechanisms.
+Deflationary Token
+  A token design where the total supply decreases over time, typically through burn mechanisms.
 
-**Decimals** — The number of decimal places a token supports, determining the smallest possible unit. Nine decimals means the smallest unit is 0.000000001 of the token.
+Decimals
+  The number of decimal places a token supports, determining the smallest possible unit. Nine decimals means the smallest unit is 0.000000001 of the token.
 
-**Fungible** — Interchangeable; one unit is identical to every other unit. Dollar bills are fungible; vintage baseball cards are not.
+Fungible
+  Interchangeable; one unit is identical to every other unit. Dollar bills are fungible; vintage baseball cards are not.
 
-**Inflationary Token** — A token design where new tokens are continuously minted, typically as rewards for desired behaviors, increasing the total supply over time.
+Inflationary Token
+  A token design where new tokens are continuously minted, typically as rewards for desired behaviors, increasing the total supply over time.
 
-**Mint Authority** — The cryptographic key that holds the power to create new tokens. Revoking the mint authority permanently ends the ability to issue new supply.
+Mint Authority
+  The cryptographic key that holds the power to create new tokens. Revoking the mint authority permanently ends the ability to issue new supply.
 
-**NAAT Framework** — Network, Actors, Assets, Transactions — the analytical framework used throughout this book to evaluate token economies.
+NAAT Framework
+  Network, Actors, Assets, Transactions — the analytical framework used throughout this book to evaluate token economies.
 
-**Non-Fungible** — Unique; each unit is distinguishable from every other unit and represents a specific, non-interchangeable thing. NFT stands for Non-Fungible Token.
+Non-Fungible
+  Unique; each unit is distinguishable from every other unit and represents a specific, non-interchangeable thing. NFT stands for Non-Fungible Token.
 
-**Reputation Token** — A token that represents earned standing in a community, typically non-transferable or designed to resist use as pure currency.
+Reputation Token
+  A token that represents earned standing in a community, typically non-transferable or designed to resist use as pure currency.
 
-**Soulbound Token** — A non-transferable token, designed by Ethereum co-founder Vitalik Buterin, that represents credentials or reputation that cannot be sold or transferred — only earned.
+Soulbound Token
+  A non-transferable token, designed by Ethereum co-founder Vitalik Buterin, that represents credentials or reputation that cannot be sold or transferred — only earned.
 
-**SPL Token** — Solana Program Library Token — the standard for fungible tokens on Solana, equivalent to ERC-20 on Ethereum.
+SPL Token
+  Solana Program Library Token — the standard for fungible tokens on Solana, equivalent to ERC-20 on Ethereum.
 
-**Token Brief** — The one-page design document that specifies a token's representation, actor incentives, supply model, name, symbol, and description. The output of this chapter's activity.
+Token Brief
+  The one-page design document that specifies a token's representation, actor incentives, supply model, name, symbol, and description. The output of this chapter's activity.
 
-**Token Sink** — A mechanism that removes tokens from circulation permanently (burning) or temporarily (locking, staking). Essential for preventing unlimited supply growth in inflationary systems.
+Token Sink
+  A mechanism that removes tokens from circulation permanently (burning) or temporarily (locking, staking). Essential for preventing unlimited supply growth in inflationary systems.
 
-**Velocity** — The rate at which tokens circulate in an economy. High velocity means tokens are frequently exchanged; low velocity (hoarding) means tokens sit in wallets. Both extremes can be pathological.
+Velocity
+  The rate at which tokens circulate in an economy. High velocity means tokens are frequently exchanged; low velocity (hoarding) means tokens sit in wallets. Both extremes can be pathological.
+
+Memecoin
+  A token whose stated representation is none of the four (payment, access, ownership, reputation) — its value is attention. Closer to a collectible than a currency; launch mechanics (bonding curves) are covered in Chapter 5.
+
+DePIN
+  Decentralized Physical Infrastructure Network — a token economy in which participants earn tokens by supplying a physical resource (wireless coverage, storage, mapping data). Helium and Hivemapper are the archetypes.
+```
 
 ---
 
@@ -509,6 +564,14 @@ After posting, respond to at least **two classmates** with substantive engagemen
 ---
 
 ## 🔬 Hands-On Lab: Token Brief Peer Review
+
+### Part 0: Run the Test on a Memecoin (Individual, 15 minutes)
+
+1. Open `https://dexscreener.com`, select the **Solana** chain filter, sort by 24h volume.
+2. Pick one token whose name or logo is clearly a meme. Open its page. Record: price, 24h volume, liquidity, market cap, and age of the pair.
+3. Click through to its Solscan page (the link icon next to the mint address). Record holder count and the top-10 holder share.
+4. Fill in the Actor Table for it: Buyers / Early holders / Deployer. Be honest about the Reason to Spend column.
+5. Write three sentences: does it pass the "why would anyone want this" test, and what single addition would make it pass?
 
 ### Part 1: Analyze a Real Token Economy (Individual, 30 minutes)
 
@@ -552,3 +615,5 @@ The technology is Table Stakes. The business design is the work.
 ---
 
 *End of Chapter 2 · Next: [Chapter 3 — Launch Your Token for Under \$60](#ch-03-launch-your-token)*
+
+<!-- NEW IMAGES NEEDED: ch02-memecoin-actor-table.png (honestly completed actor table for a memecoin, annotated as failing Failure Pattern 1 by construction) -->

@@ -28,7 +28,7 @@ By the time you finish this textbook, you will have:
 - Designed a token from business first principles (Chapter 2)
 - Launched that token on mainnet for under \$60 (Chapter 3)
 - Built tokenomics — supply, distribution, vesting schedules (Chapters 4 & 6)
-- Created a live liquidity pool on a decentralized exchange (Chapter 5)
+- Created a live liquidity pool on a decentralized exchange, for the cost of a pool-creation fee and a few dollars of liquidity (Chapter 5)
 - Built utility for your token without writing code (Chapter 7)
 - Written and deployed your first on-chain program (Chapter 8)
 - Created NFT-based memberships and ownership assets (Chapter 9)
@@ -81,7 +81,9 @@ The NAAT Canvas you complete in Chapter 0 stays with you for the entire course. 
 
 ## Why Solana
 
-Solana processes **65,000 transactions per second** with finality in **400 milliseconds** and fees of approximately **\$0.0008** per transaction. These numbers are not academic benchmarks — they are why Solana is the only layer-1 blockchain where the economics of real business applications make sense.
+Solana processes **a theoretical ceiling of 65,000 transactions per second** (sustained real-world throughput is in the low thousands) with finality in **400 milliseconds** and fees of approximately **\$0.0005** per transaction. These numbers are not academic benchmarks — they are why Solana is the only layer-1 blockchain where the economics of real business applications make sense.
+
+Dollar figures throughout this book assume SOL ≈ \$100. Recompute with the current price.
 
 The \$20 of SOL you acquire in Chapter 1 will last you the entire course. The same budget on Ethereum would be consumed by fees in a single session.
 
@@ -123,7 +125,7 @@ Supply schedules, inflation rates, vesting cliffs, and emission curves — the e
 :::
 
 :::{grid-item-card} Chapter 5: Give It a Market: Liquidity on Raydium
-:link: ./chapters/ch05-raydium-liquidity.md
+:link: ./chapters/ch05-liquidity-raydium.md
 How decentralized exchanges work, what liquidity pools are, and how to create the first market for your token on Raydium.
 :::
 

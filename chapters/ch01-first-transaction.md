@@ -178,7 +178,7 @@ When you send SOL from one address to another, what actually happens? Let us wal
 
 **Step 1: Instruction construction.** Your wallet software assembles a transaction object. For a simple SOL transfer, this contains: the sender's address, the recipient's address, the amount in lamports (a lamport is 0.000000001 SOL — named after computer scientist Leslie Lamport), and any additional instructions (like token program calls for SPL token transfers).
 
-**Step 2: Fee estimation.** Every Solana transaction requires a transaction fee, paid in SOL. Solana's fees are among the lowest in the blockchain industry — typically 0.000005 SOL, or about \$0.0008 at current prices. This makes Solana economically viable for applications that would be cost-prohibitive on networks like Ethereum, where transaction fees can range from \$5 to \$200 depending on network congestion.
+**Step 2: Fee estimation.** Every Solana transaction requires a transaction fee, paid in SOL. Solana's fees are among the lowest in the blockchain industry — typically 0.000005 SOL, or about \$0.0005 at SOL ≈ \$100 (the price assumption used for dollar figures throughout this book). This makes Solana economically viable for applications that would be cost-prohibitive on networks like Ethereum, where transaction fees can range from \$5 to \$200 depending on network congestion.
 
 **Step 3: Recent blockhash.** The wallet fetches the hash of a recent block from the network. This hash is embedded in the transaction and serves two purposes: it proves the transaction was created recently (preventing replay attacks) and it links the transaction to the current state of the blockchain.
 
@@ -213,7 +213,7 @@ But Ethereum has two characteristics that make it impractical for many real-worl
 
 **Cost:** Ethereum's gas fees — the cost of executing transactions and smart contract operations — are priced in ETH and fluctuate based on network congestion. During periods of high activity, simple token transfers have cost \$50–\$200 per transaction. For a business trying to serve customers with sub-\$10 transaction values, this is a fundamental economic barrier.
 
-**Speed:** Ethereum's base layer processes approximately 15–30 transactions per second, with finality taking 12–15 minutes. (Ethereum's Layer-2 solutions improve this significantly, but add complexity for developers and users.) For applications requiring real-time settlement — point-of-sale, gaming, supply chain tracking — this latency is prohibitive.
+**Speed:** Ethereum's base layer processes approximately 15–30 transactions per second, with finality taking 12–15 minutes. (Ethereum's Layer-2 solutions improve this significantly, but add complexity for developers and users.) In fairness, Ethereum's Layer-2 networks (Base, Arbitrum) are the realistic 2026 comparison on fees and speed, and on those metrics they are competitive with Solana. The book's argument for Solana rests on a single integrated execution layer — one chain, one fee market, one state — with no bridging between L1 and L2 for users or developers to manage. For applications requiring real-time settlement — point-of-sale, gaming, supply chain tracking — this latency is prohibitive.
 
 ### The Solana Architecture
 
@@ -231,9 +231,9 @@ The result of these architectural choices:
 
 | Metric | Bitcoin | Ethereum | Solana |
 |--------|---------|----------|--------|
-| Throughput (TPS) | 7 | 15-30 | 65,000+ |
+| Throughput (TPS) | 7 | 15-30 | 65,000 (theoretical ceiling; sustained real-world throughput is in the low thousands) |
 | Block time | ~10 min | ~12 sec | ~400 ms |
-| Avg. transaction fee | ~\$1-5 | ~\$1-50 | ~\$0.0008 |
+| Avg. transaction fee | ~\$1-5 | ~\$1-50 | ~\$0.0005 |
 | Finality | ~60 min | ~12-15 min | ~400-800 ms |
 | Energy per tx | ~700 kWh | ~0.03 kWh | <0.001 kWh |
 
@@ -319,6 +319,21 @@ The industry wisdom, which has become a cultural maxim: **"Not your keys, not yo
 
 For serious asset holdings, self-custody users typically use a **hardware wallet** — a physical device (Ledger, Trezor) that stores the private key in a secure enclave, never exposing it to internet-connected devices. When signing a transaction, you physically confirm on the device. The private key never leaves the hardware. This is the gold standard for self-custody security, and the recommended approach for holdings above ~\$1,000.
 
+### Embedded Wallets
+
+A fourth model has become standard in consumer applications: the **embedded wallet** — a wallet created and managed inside an app by a wallet-as-a-service provider (Privy, Dynamic, and the embedded SDKs offered by major wallet vendors). The user signs up with an email address or a passkey, and a wallet is generated for them behind the scenes; they never see a seed phrase, never install an extension, and often never know they are using a blockchain at all. Key material is typically split or held in secure enclaves managed by the service, and recovery works the way users expect — through the login they already have.
+
+The trade-off is the theme of this chapter in miniature: convenience and recoverability come at the cost of the app provider becoming a quasi-custodian, since the user's access to the key depends on the provider's infrastructure and policies. For a business onboarding mainstream customers, that trade is often the right one — Chapter 7's discussion of user experience returns to why the connect-wallet step is where most customers are lost.
+
+:::{figure} ../images/ch01-embedded-wallets.png
+:label: fig-ch01-embedded-wallets
+:alt: Diagram showing an embedded wallet created inside an app via passkey or email login, with the wallet-as-a-service provider managing key material, contrasted with a traditional self-custody wallet and its seed phrase
+:width: 80%
+:align: center
+
+**Embedded Wallets:** The user logs in with a passkey or email and never sees a seed phrase — the app's wallet-as-a-service provider manages the key. Convenience and recoverability, in exchange for the provider becoming a quasi-custodian.
+:::
+
 :::{figure} ../images/ch01-custody-spectrum.png
 :label: fig-ch01-custody-spectrum
 :alt: Diagram showing the custody spectrum from fully custodial (exchange wallet) through software self-custody (Phantom) to hardware self-custody (Ledger), with security and convenience trade-offs labeled
@@ -328,13 +343,15 @@ For serious asset holdings, self-custody users typically use a **hardware wallet
 **The Custody Spectrum:** Security and convenience trade off directly. For this course, a software wallet (Phantom) with proper seed phrase security is appropriate for the small amounts involved.
 :::
 
+Stablecoins such as USDC add a second custody question — the issuer's — covered in Chapter 5, *Beyond the Pool*.
+
 ---
 
 ## Phantom: Solana's Primary Wallet
 
-**Phantom** (phantom.app) is the most widely used Solana wallet, available as a browser extension (Chrome, Firefox, Edge, Brave) and as a mobile app (iOS, Android). It is free, open-source, non-custodial, and integrates with virtually every Solana DeFi protocol, DEX, and NFT marketplace you will encounter in this course.
+**Phantom** (phantom.app) is the most widely used Solana wallet, available as a browser extension (Chrome, Firefox, Edge, Brave) and as a mobile app (iOS, Android). It is free, non-custodial, and integrates with virtually every Solana DeFi protocol, DEX, and NFT marketplace you will encounter in this course.
 
-Phantom launched in 2021 and has grown to over 3 million active users. It has been audited by multiple security firms, is maintained by a well-funded company, and has a track record of responsible security disclosures. For a software wallet used with small amounts and as a learning tool, it is the appropriate choice for this course.
+Phantom launched in 2021 and has grown to more than 15 million monthly active users. It has been audited by multiple security firms, is maintained by a well-funded company, and has a track record of responsible security disclosures. For a software wallet used with small amounts and as a learning tool, it is the appropriate choice for this course.
 
 :::{admonition} Security Note
 :class: warning
@@ -402,7 +419,7 @@ Wait until your SOL has arrived in your primary wallet and is visible in Phantom
 
 1. In Phantom (showing your primary wallet), click "Send"
 2. Paste your backup wallet address in the recipient field
-3. Enter an amount: 0.01 SOL (approximately \$1.50 at most price levels — a trivial amount that will demonstrate the mechanics)
+3. Enter an amount: 0.01 SOL (approximately \$1 at SOL ≈ \$100 — a trivial amount that will demonstrate the mechanics)
 4. Review the transaction details — note the fee shown (should be <\$0.01)
 5. Click "Send"
 6. Phantom will show a confirmation screen — click "Confirm"
@@ -480,7 +497,7 @@ You have just done something that was technically impossible for most of human h
 
 The private keys sitting in your Phantom wallet — secured by the seed phrases on your two pieces of paper — represent a form of ownership that does not require anyone's permission, does not depend on any institution's solvency, and cannot be frozen, restricted, or confiscated without your cooperation. This is not a minor feature. It is a categorical change in the nature of digital property.
 
-The global addressable market for financial services that blockchains can disrupt runs into the trillions of dollars annually. The remittance market alone — international money transfers by migrant workers back to their home countries — generates \$45 billion in fees per year. A Solana transaction that accomplishes the same transfer in 400 milliseconds for \$0.0008 in fees does not disrupt that market incrementally. It makes the existing fee structure indefensible.
+The global addressable market for financial services that blockchains can disrupt runs into the trillions of dollars annually. The remittance market alone — international money transfers by migrant workers back to their home countries — generates \$45 billion in fees per year. A Solana transaction that accomplishes the same transfer in 400 milliseconds for \$0.0005 in fees does not disrupt that market incrementally. It makes the existing fee structure indefensible.
 
 Cross-border business payments — currently routed through Swift with 2-5 day settlement and fees of 2-4% — are experiencing the same compression. Payments companies like Circle (issuer of the USDC stablecoin) and Stripe have integrated Solana-based settlement precisely because the economics are too compelling to ignore at scale.
 
@@ -545,7 +562,7 @@ Wallet
   Software (or hardware) that stores private keys, generates addresses, and interfaces with the blockchain to sign transactions and display balances. Does not "hold" assets — those live on the blockchain.
 
 Phantom
-  The primary non-custodial browser extension and mobile wallet for Solana. Free, open-source, and compatible with virtually all Solana DeFi and NFT protocols.
+  The primary non-custodial browser extension and mobile wallet for Solana. Free and compatible with virtually all Solana DeFi and NFT protocols.
 
 Address
   A public identifier on the blockchain, derived from the public key. Used to receive assets. On Solana, typically 32-44 characters in base-58 encoding.
@@ -564,6 +581,9 @@ Hardware Wallet
 
 Multisig (Multi-Signature)
   A wallet configuration requiring M of N private keys to authorize a transaction (e.g., 3 of 5). Reduces single-point-of-failure risk for businesses and DAOs.
+
+Embedded Wallet
+  A wallet created and managed inside an application by a wallet-as-a-service provider (e.g., Privy, Dynamic). The user signs in with an email or passkey and never sees a seed phrase; the trade-off is that the app provider becomes a quasi-custodian of the key.
 
 Non-Custodial
   A wallet or protocol in which the user holds their own private keys — no third party has custody or control of the assets.
@@ -595,3 +615,5 @@ KYC (Know Your Customer)
 MiCA (Markets in Crypto-Assets)
   The European Union's comprehensive regulatory framework for cryptocurrency, effective 2024-2025. Imposes licensing, disclosure, and conduct requirements on crypto service providers operating in the EU.
 ```
+
+<!-- NEW IMAGES NEEDED: ch01-embedded-wallets.png (embedded wallet via passkey/email login with wallet-as-a-service provider, contrasted with traditional self-custody seed phrase) -->

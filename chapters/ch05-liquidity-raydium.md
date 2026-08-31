@@ -114,6 +114,14 @@ Think of it as the difference between watering an entire field versus drip-irrig
 
 The rule of thumb for this book: **constant product for a new token with no price history** (which is exactly what the lab in this chapter uses — you have no idea where your token will trade, so spreading liquidity everywhere is the honest choice); **concentrated pools once the price has an established range and there are active LPs** willing to manage positions. Pool depth and how to read it are covered further in Chapter 10, *Liquidity Depth*.
 
+:::{admonition} 📖 Read: Dr. Lee's DLMM Case Study — $50K Volume on a Dead Token
+:class: seealso
+
+Want to see concentrated liquidity put to work on a real Solana token with zero volume? Dr. Lee documented how he used Meteora's DLMM pools to generate $50K in trading volume with less than $5K in initial liquidity — a live example of everything in this section about pool types, range selection, and capital efficiency.
+
+**[How I Generated $50K in Trading Volume for My Dead Solana Token Using Meteora's DLMM Pools](https://drlee.io/how-i-generated-50k-in-trading-volume-for-my-dead-solana-token-using-meteoras-dlmm-pools-b8f375b5d735)**
+:::
+
 :::{figure} ../images/ch05-cpmm-vs-clmm.png
 :label: fig-ch05-cpmm-vs-clmm
 :alt: Comparison diagram showing constant product liquidity spread across all prices versus concentrated liquidity focused in a chosen price range with greater depth
@@ -244,6 +252,16 @@ Most of what trades on these curves is the memecoin category from Chapter 2 — 
 :align: center
 
 *The bonding curve lifecycle:* Price climbs along a fixed curve as buyers enter; at the graduation threshold the accumulated SOL and tokens migrate into a standard AMM pool.
+:::
+
+:::{admonition} 📖 Read: Dr. Lee's Raydium Liquidity Series
+:class: seealso
+
+Dr. Lee documented adding liquidity to his own Solana token in two companion articles — both are direct walkthroughs of exactly what this lab asks you to do. Read one or both before you start the activity below.
+
+**[Turn Your Dead Solana Token Into a Living, Breathing Asset Using Raydium's Liquidity Pools](https://drlee.io/turn-your-dead-solana-token-into-a-living-breathing-asset-using-raydiums-liquidity-pools-abcc958256af)** — Phantom setup, pool creation, the first liquidity deposit, what happens in the first 24 hours.
+
+**[From Dormant Token to Trading Powerhouse — How I Made DRLeeCoin Tradeable on Raydium (Part 2)](https://drlee.io/from-dormant-token-to-trading-powerhouse-how-i-made-drleecoin-tradeable-on-raydium-part-2-a076c526b0b4)** — Continuing the same token from Part 1: adding depth, monitoring the position, managing slippage.
 :::
 
 ## Activity: Open the Market

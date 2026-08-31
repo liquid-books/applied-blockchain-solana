@@ -336,6 +336,14 @@ Your justification should answer: Why does this allocation serve long-term token
 A starter spreadsheet is provided in the repo at `resources/ch04-tokenomics-model.xlsx`, with tabs for Allocation, Vesting, Circulating, and Demand. The formulas are wired together — change the allocation percentages or vesting terms and the circulating supply projection, demand model, and inflection indicator update automatically.
 :::
 
+:::{admonition} 📖 Read: Dr. Lee on Token Economy Design
+:class: seealso
+
+This chapter's concepts — velocity sinks, the circular yield failure, the three-token stack — are put to work in Dr. Lee's hands-on article on designing token economies that attract capital instead of confusion. It covers the fundamental conflict between velocity and value accrual that sits at the center of this chapter's demand model.
+
+**[Stop Building Frankenstein Tokens: How to Design a Token Economy That Actually Works](https://drlee.io/stop-building-frankenstein-tokens-how-to-design-a-token-economy-that-actually-works-using-the-a80a555049ec)**
+:::
+
 ---
 
 ## 💬 Discussion: The Builder's Dilemma

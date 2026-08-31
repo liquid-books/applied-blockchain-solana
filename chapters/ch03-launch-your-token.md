@@ -434,6 +434,14 @@ This is precisely the point the chapter opened with. Token creation is no longer
 
 The chapters ahead address each of those problems directly. But you needed to hold a live token first. Now you do.
 
+:::{admonition} 📖 Read: Dr. Lee's Step-by-Step Blueprint
+:class: seealso
+
+Want to see this chapter's lab done live, start to finish? Dr. Lee launched his own cryptocurrency on Solana for $60 and documented every step — wallet setup, Smithii token creation, authority decisions, and the exact costs. Read it alongside the lab above.
+
+**[I Launched My Own Cryptocurrency for $60 Using Solana — Here's the Exact Blueprint](https://drlee.io/i-launched-my-own-cryptocurrency-for-60-using-solana-heres-the-exact-blueprint-c2534c92b751)**
+:::
+
 ---
 
 ## 💬 Discussion: The Mint Authority Question

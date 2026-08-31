@@ -456,6 +456,14 @@ The author must answer these questions using only what is written in the Token B
 
 A brief passes peer review when every actor type has a clear, economic reason to hold that does not depend on future price appreciation.
 
+:::{admonition} 📖 Read: Dr. Lee on Token Economy Design
+:class: seealso
+
+Before finalizing your token brief, read Dr. Lee's analysis of the most common design failure in student projects: the Frankenstein token — one token asked to be a currency, an investment, and a governance vote simultaneously. The article walks through the three-token stack solution and the velocity vs. value accrual tension at the core of this chapter.
+
+**[Stop Building Frankenstein Tokens: How to Design a Token Economy That Actually Works](https://drlee.io/stop-building-frankenstein-tokens-how-to-design-a-token-economy-that-actually-works-using-the-a80a555049ec)**
+:::
+
 ---
 
 ## What You Walk Away With

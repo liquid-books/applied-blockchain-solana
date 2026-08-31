@@ -509,11 +509,21 @@ Immutable Program
 
 ---
 
-## Going Deeper: Build a Blockchain from Scratch
+## 🚀 Advanced (Optional): Build a Blockchain from Scratch in JavaScript
 
-**▶ Build a Blockchain from Scratch — Simply Explained Series**
+:::{admonition} Optional — Advanced Track
+:class: tip
 
-The videos below walk through building a working blockchain in JavaScript — no frameworks, no shortcuts. Watching this series alongside the Solana program you deployed today gives you a complete picture of what every layer of the stack actually does.
+This section is for students who want to go deeper than the business layer. It requires a little technical comfort with code — but if that feels intimidating, remember: **vibe coding works here.** Paste the source code from any part of this series into Claude or ChatGPT, describe what you want to change or understand, and let the AI walk you through it. You do not need to be a programmer to learn from this.
+
+**What you'll build:** A working blockchain from scratch — blocks, hashing, proof-of-work, transactions, and digital signatures — in plain JavaScript. No Solana, no frameworks, no SDK. Just the raw logic that every blockchain (including Solana) is built on top of.
+
+**Source code:** Available on GitHub at [github.com/SavjeeTutorials/SavjeeCoin](https://github.com/SavjeeTutorials/SavjeeCoin) — fork it, break it, and ask an AI to explain any line you don't understand.
+
+**Full course page:** [simplyexplained.com/courses/blockchain-in-javascript](https://simplyexplained.com/courses/blockchain-in-javascript/)
+:::
+
+The four videos below walk through the complete build — from the first block to signed transactions. Watching this series alongside the Solana program you deployed today gives you a complete picture of what every layer of the stack actually does underneath the tools this book uses.
 
 **▶ Watch: Creating a blockchain with Javascript (part 1) (14 min)**
 

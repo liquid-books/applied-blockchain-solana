@@ -162,6 +162,33 @@ The multisig is not just a security measure. It is a governance statement. When 
 
 ---
 
+## Managing the Treasury, Not Just Guarding It
+
+The multisig answers *who can move the money*. It says nothing about *what the money should be*. A vault full of your own token is not a treasury — it is a bet on your own token, made with the funds that are supposed to keep the project alive when that bet goes wrong. Managing the treasury is a policy problem, and the policy should be written down before anyone has to argue about it under pressure.
+
+**What the vault should hold.** Chapter 4's guidance stands as policy: 50–70% of the treasury in stablecoins or blue-chip assets, the remainder in your own token. The stablecoin portion is not idle capital — it is the portion of your treasury whose value does not collapse on exactly the day you need it most. When your token's price falls, your operating costs do not.
+
+**Runway.** Runway = stable assets ÷ monthly burn, and the rule is strict: runway is counted in stablecoins only. A treasury holding \$1 million of its own token and \$100,000 of USDC against a \$20,000 monthly burn has five months of runway, not fifty-five. The token portion is upside, not oxygen. Compute this number monthly and publish it if you can — it is the single figure that tells your community whether the project survives the next bear market.
+
+**A written spending policy.** Decide, in advance, who can propose spending and what size of spending needs what level of approval. A workable pattern: any signer can propose; spending below a threshold (say, one month's burn) clears with the multisig alone; anything above it requires a governance vote on Realms — which is exactly what the proposal threshold you configure in this chapter's activity is for. The policy turns "should we spend this?" from a personality conflict into a procedure.
+
+**Diversification.** Converting treasury tokens to stablecoins is not betrayal — it is the fiduciary duty of anyone running a real organization. Do it on a schedule, and announce the schedule: scheduled, pre-announced conversions let the market price the flow in, instead of discovering it as a surprise sell wall.
+
+**The founder's dilemma: selling your own token.** Sooner or later the treasury must sell some of its own token to fund operations, and there is no way to do it that costs nothing. There is only a way to do it that costs the most: market-selling into your own thin pool (Chapter 5), where every sale moves the price against you and every observer reads the on-chain flow (Chapter 10's exchange-inflow signal) as the team dumping. The alternatives, in order of preference: OTC sales to aligned, long-term buyers; time-weighted execution that spreads the sale across weeks; or an announced conversion schedule the market can price in advance. The mechanics differ; the principle is the same — never surprise your own holders with your own sell order.
+
+**Protocol-owned liquidity as a treasury asset.** The LP position from Chapter 5 can itself live in the treasury: the DAO owns the pool position, earns its trading fees, and cannot rug its own community without a public vote. Protocol-owned liquidity converts the most rug-prone asset in the project into the most transparent one.
+
+:::{figure} ../images/ch11-treasury-runway.png
+:label: fig-ch11-treasury-runway
+:alt: Treasury management diagram showing a vault split between stablecoins and native token, with runway calculated as stable assets divided by monthly burn, a spending-policy threshold ladder from multisig approval to governance vote, and a scheduled diversification timeline
+:width: 80%
+:align: center
+
+**Treasury Management, Not Just Custody:** Runway is counted in stablecoins only. Spending thresholds route small decisions to the multisig and large ones to a vote. Diversification happens on an announced schedule — never as a surprise into your own thin pool.
+:::
+
+---
+
 ## Governance Attacks: What Can Go Wrong
 
 Before you build your governance system, you need to understand how it fails. Governance attacks are not theoretical — they have happened to real projects, causing real losses.
@@ -232,6 +259,32 @@ The worst governance decisions are the ones made out of narrative obligation —
 
 ---
 
+## The Legal Wrapper: A DAO Is Not Yet a Legal Person
+
+Your DAO can vote, spend, and execute — but it cannot sign an office lease, open a bank account, or appear in court. In the eyes of most legal systems, it does not exist. And the default that fills that vacuum is worse than nonexistence: in several U.S. rulings, an unincorporated DAO has been treated as a **general partnership** — which means every token-voting member is potentially personally liable for the whole organization's obligations. Vote once on a proposal, and a plaintiff's lawyer may argue you are a partner in everything the DAO ever does.
+
+The reference case is the CFTC's action against **Ooki DAO**. In 2022 the CFTC charged the DAO itself — not a company, the DAO — with operating an illegal trading platform, served it by posting in its online help forum, and won by default judgment in 2023. The court accepted the theory that the DAO was an unincorporated association whose token holders had voted on its operations. The message to every DAO participant was unambiguous: decentralized governance does not place you outside the law; it may place all of you, individually, inside it.
+
+The answer is a **legal wrapper**: a recognized legal entity that the on-chain governance directs. The wrapper holds the treasury's bank account, signs contracts, employs people, and pays taxes — while proposals passed on Realms tell it what to do. The main options:
+
+- **Wyoming DAO LLC.** Wyoming was the first U.S. state to recognize DAOs as a species of LLC (2021). Members get limited liability, and the operating agreement can state that governance happens on-chain — the smart contract *is* the management mechanism, recognized in the filing.
+- **Marshall Islands DAO LLC.** A non-U.S. equivalent: the Marshall Islands recognizes DAO LLCs with on-chain governance and no requirement that members be identified individually, which suits pseudonymous communities.
+- **Cayman Islands foundation company.** A foundation company has no members or shareholders at all — it is an orphan entity run by directors under a charter that can bind them to follow on-chain votes. This is the common structure for protocol foundations that hold treasuries and intellectual property.
+- **Swiss association (Verein).** The structure behind several major protocol foundations: a member-based non-profit association under Swiss law, straightforward to form, long track record with crypto projects.
+
+Which wrapper fits depends on where your members are, whether the token itself creates securities exposure, and what the entity must do in the physical world — questions that belong in the same conversation with counsel as the Howey analysis. Chapter 12 covers entity choice alongside the "efforts of others" prong; for now, the design rule is simple: if your DAO will ever touch a dollar, a contract, or an employee, wrap it before it does.
+
+:::{figure} ../images/ch11-legal-wrappers.png
+:label: fig-ch11-legal-wrappers
+:alt: Comparison diagram of four DAO legal wrappers — Wyoming DAO LLC, Marshall Islands DAO LLC, Cayman Islands foundation company, and Swiss association — showing what each provides, with an unwrapped DAO at the left labeled as a general partnership with member liability
+:width: 80%
+:align: center
+
+**Four Legal Wrappers for a DAO:** An unwrapped DAO defaults, in several U.S. rulings, to a general partnership — every voter potentially liable. Each wrapper trades some formation cost for limited liability, a bank account, and the ability to sign contracts, while on-chain governance directs the entity.
+:::
+
+---
+
 ## Activity: Form the DAO
 
 This is where the chapter becomes hands-on. By the end of this activity, you will have a working DAO: a multisig treasury with classmates as co-signers, a Realms governance space tied to your token, and one completed proposal that executed on-chain.
@@ -258,6 +311,8 @@ Your treasury allocation (from Chapter 4's tokenomics design) is probably 10–2
 
 6. After the transfer, verify the vault balance in the Squads UI. Your two co-signers should also be able to log in and see the vault — ask them to confirm.
 
+7. In Squads, open **Settings → Members** and walk through (without executing) adding a fourth signer and raising the threshold to 3-of-4. Screenshot the proposal screen. This is the succession step from Chapter 12: rotating a signer in or out is itself a multisig proposal, and knowing the path before you need it is the difference between a routine change and a locked treasury.
+
 ### Part 2: Set Up Your Governance Space on Realms
 
 **Realms** ([app.realms.today](https://app.realms.today)) is the standard governance platform on Solana. It is where proposals live, where votes happen, and where on-chain execution gets triggered.
@@ -275,6 +330,8 @@ Your treasury allocation (from Chapter 4's tokenomics design) is probably 10–2
 4. Click **Create Realm** and approve the transaction. Realms will create your DAO on-chain. Copy the Realm address.
 
 5. Distribute a small amount of your token to your two classmates so they have voting power. They will need to "deposit" the tokens into the governance account in Realms to activate their voting rights — there is a "Deposit Governance Tokens" step in the Realms UI.
+
+6. In Realms → your DAO → **Params/Config**, screenshot the governance parameters and identify the proposal threshold, vote duration, and any execution delay (time lock). If a time lock is configurable, set one of 1 hour and note what changes in Part 3: the proposal will pass but the Execute button will not fire until the delay elapses — the window in which a community catches a malicious or flawed proposal.
 
 ### Part 3: Submit and Execute a Real Proposal
 
@@ -295,6 +352,18 @@ Now for the actual governance. You are going to propose, vote on, and execute a 
 7. After 24 hours (or if your governance allows early execution once quorum is clear), click **Execute** when the proposal passes. The on-chain instruction fires. The tokens move. The airdrop happens.
 
 8. Screenshot the completed vote — the proposal status showing "Executed" with the transaction signature. This is your proof of work.
+
+### Part 4: Treasury Policy (15 minutes)
+
+Write a half-page treasury policy for your token:
+
+- **Target stablecoin percentage** of the treasury (use the 50–70% guidance from *Managing the Treasury, Not Just Guarding It* as your starting point, and justify any deviation).
+- **Monthly burn estimate** — what the project spends per month, in dollars.
+- **Runway in months** — stable assets ÷ monthly burn, counted in stablecoins only.
+- **Spending thresholds** — what size of spending the multisig alone can approve, and what requires a Realms vote.
+- **The conversion plan** — how you would convert 10% of the treasury's token holdings to USDC without moving the price. Name the method (OTC sale, time-weighted execution, or announced schedule) and why.
+
+Submit the policy with the executed-proposal screenshot from Part 3.
 
 :::{figure} ../images/ch11-realms-proposal.png
 :label: fig-ch11-realms
@@ -346,7 +415,7 @@ The incident illustrated both the power and the fragility of on-chain governance
 
 **Uniswap: Governance as Brand**
 
-Uniswap's UNI token launched with \$6.43 per UNI and an initial market cap of hundreds of millions of dollars — before Uniswap governance had made a single meaningful decision. The value was not current utility; it was future optionality. Holders were buying the right to vote on the direction of the leading DEX, on fee switches, on grants, on protocol upgrades. Governance power was so obviously valuable that the market priced it immediately. This is the clearest evidence that governance tokens are genuinely assets, not just voting chips.
+Uniswap's UNI token began trading near \$3 on September 17, 2020 and roughly doubled within a day, giving it a market cap in the billions — before Uniswap governance had made a single meaningful decision. The value was not current utility; it was future optionality. Holders were buying the right to vote on the direction of the leading DEX, on fee switches, on grants, on protocol upgrades. Governance power was so obviously valuable that the market priced it immediately. This is the clearest evidence that governance tokens are genuinely assets, not just voting chips.
 
 :::{figure} ../images/ch11-case-studies.png
 :label: fig-ch11-cases
@@ -375,7 +444,7 @@ The one-token-one-vote system is honest about something most governance systems 
 
 But "honest" is not the same as "right." Democracy as an ideal is not one-dollar-one-vote — it is one-person-one-vote, because we believe every citizen has equal standing regardless of wealth. The question is whether a token economy is more like a company (where owners govern in proportion to ownership) or more like a polity (where stakeholders govern as equals).
 
-Some alternatives have been tried. **Quadratic voting** makes each additional vote more expensive — your first token gives you one vote, but your second costs two tokens, your third costs three, and so on. This compresses the power of large holders without eliminating it. **Conviction voting** weights votes by time: holding a vote position for longer builds more voting power, rewarding long-term commitment over short-term speculation. **Reputation systems** give voting power based on contribution history rather than token balance — harder to buy, easier to earn.
+Some alternatives have been tried. **Quadratic voting** makes each additional vote more expensive — *n* votes cost *n²* tokens in total, so each additional vote costs more than the last (the *n*th vote costs 2*n*−1): 1, 3, 5… Ten votes cost 100 tokens; a hundred votes cost 10,000. This compresses the power of large holders without eliminating it. **Conviction voting** weights votes by time: holding a vote position for longer builds more voting power, rewarding long-term commitment over short-term speculation. **Reputation systems** give voting power based on contribution history rather than token balance — harder to buy, easier to earn.
 
 Each system has costs. Quadratic voting is sybil-vulnerable: a whale can split tokens across a thousand wallets and recover most of their power while pretending to be a thousand citizens. Reputation systems are opaque and gameable in different ways.
 
@@ -428,7 +497,7 @@ Vote Delegation
   The ability of a token holder to assign their voting power to another wallet — a representative who votes on their behalf. Allows passive holders to participate indirectly.
 
 Quadratic Voting
-  A voting system where the cost of additional votes grows quadratically. Your first vote costs 1 token, your second costs 4, your third costs 9. Compresses power concentration compared to one-token-one-vote.
+  A voting system where the cost of additional votes grows quadratically. *n* votes cost *n²* tokens in total, so each additional vote costs more than the last (the *n*th vote costs 2*n*−1): 1, 3, 5… Ten votes cost 100 tokens; a hundred votes cost 10,000. Compresses power concentration compared to one-token-one-vote.
 
 Conviction Voting
   A governance mechanism where voting power accumulates over time. The longer you hold a vote position, the more weight it carries. Rewards long-term commitment over short-term coordination.
@@ -441,6 +510,18 @@ Governance Attack
 
 Sybil Attack
   An attack in which one entity creates many fake identities or wallets to game a system that assigns power per identity rather than per token. Particularly relevant when governance systems try to limit per-wallet voting power.
+
+Legal Wrapper
+  A recognized legal entity — an LLC, foundation, or association — that a DAO's on-chain governance directs. The wrapper holds the bank account, signs contracts, employs people, and pays taxes, giving members limited liability that an unincorporated DAO does not provide.
+
+DAO LLC
+  A limited liability company statute (pioneered by Wyoming in 2021, also available in the Marshall Islands) that recognizes on-chain governance in the operating agreement, so the smart contract is the legally acknowledged management mechanism and members receive limited liability.
+
+Foundation Company
+  A Cayman Islands entity with no members or shareholders, run by directors under a charter that can bind them to follow on-chain votes. The common structure for protocol foundations that hold treasuries and intellectual property.
+
+General Partnership Liability
+  The default legal treatment of an unincorporated DAO in several U.S. rulings: every token-voting member is potentially personally liable for the organization's obligations. The CFTC's action against Ooki DAO is the reference case.
 ```
 
 ---
@@ -458,3 +539,6 @@ The conceptual foundation matters as much as the tools. A DAO is a company whose
 - ✅ A token-governed DAO on Realms linked to your token
 - ✅ One completed proposal — submitted, voted on, executed on-chain
 - ✅ A framework for understanding governance attacks and how to design against them
+
+<!-- NEW IMAGES NEEDED: ch11-treasury-runway.png (vault split stablecoins vs. native token; runway = stable assets ÷ monthly burn; spending-threshold ladder from multisig to governance vote; announced diversification timeline) · ch11-legal-wrappers.png (unwrapped DAO as general partnership with member liability vs. Wyoming DAO LLC, Marshall Islands DAO LLC, Cayman foundation company, Swiss association) -->
+

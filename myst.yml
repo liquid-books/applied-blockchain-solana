@@ -49,6 +49,8 @@ project:
       file: chapters/ch11-governance-treasury.md
     - title: "Chapter 12: Legal, Risk, and Running It for Real"
       file: chapters/ch12-legal-risk.md
+    - title: "Lab Sites Reference"
+      file: resources/lab-sites.md
 
 site:
   title: "TokenSystems.io: Build a Token Economy on Solana"

@@ -73,6 +73,56 @@ The Howey test is not a wall — it is a set of levers. Thoughtful token design 
 
 None of these techniques eliminate legal risk. They reduce it and shift the analysis. The only way to know where a specific project stands is to work with a securities attorney who specializes in digital assets — and those conversations are worth having before launch, not after a subpoena.
 
+### If It Is a Security: The Exemption Map
+
+Concluding that your token is a security is a compliance path, not a dead end. Securities law does not say "you may not sell this" — it says "you may not sell this without registering, unless an exemption applies." The exemptions are well-worn roads, and token projects use them every year. The standard options:
+
+**Regulation D 506(c).** Sell only to **accredited investors** (individuals above income or net-worth thresholds, and institutions), verify their status, and you may solicit publicly — advertise the raise, tweet about it, pitch it on a podcast. Resale is restricted: buyers generally cannot resell to the public for a holding period. This is the most common route for token sales to funds and angels, precisely because it permits open marketing while confining the buyers to those the law presumes can bear the loss.
+
+**Regulation S.** Sell only to buyers outside the United States, with procedures ensuring the offering does not flow back into U.S. markets during a restricted period. Often run in parallel with a Reg D tranche: accredited U.S. buyers under 506(c), offshore buyers under Reg S.
+
+**Regulation Crowdfunding (Reg CF).** Raise a capped amount (low single-digit millions) from the general public — unaccredited buyers included — through an SEC-registered funding portal, with disclosure requirements scaled to the raise. The trade-off: caps on how much each investor may put in, and the portal's process.
+
+**Regulation A+.** The "mini-IPO": larger public raises (up to the tens of millions) from the general public, but only after the SEC qualifies an offering circular — a months-long disclosure and review process with ongoing reporting. The most expensive exemption, and the only one that produces freely tradable tokens for retail buyers.
+
+The on-chain half of the map is already in your toolkit: the transfer restrictions these exemptions require — holding periods, accredited-only transfer — map directly to Token-2022's **default account state (frozen)** and **permanent delegate** extensions (Chapter 3). New token accounts start frozen until the issuer verifies the holder; the delegate enforces clawback where the law demands it. This is how compliant RWA tokens work (Chapter 2): the exemption defines who may hold, and the token program enforces it.
+
+:::{figure} ../images/ch12-exemption-map.png
+:label: fig-ch12-exemption-map
+:alt: Decision map of U.S. securities exemptions for token sales — Regulation D 506(c) for accredited investors with general solicitation, Regulation S for offshore buyers, Regulation Crowdfunding for small public raises via a portal, and Regulation A+ for larger qualified public raises — each mapped to the Token-2022 extensions that enforce its transfer restrictions on-chain
+:width: 80%
+:align: center
+
+**The Exemption Map:** If the token is a security, four exemptions define who may buy it and how. Each exemption's transfer restrictions map to Token-2022 extensions — the law defines the rule, the token program enforces it.
+:::
+
+---
+
+## Money Transmission, AML, and FinCEN
+
+Securities law is one regulator. **FinCEN** — the Financial Crimes Enforcement Network, the U.S. Treasury's financial-crimes unit — is another, and it asks a completely different question. The SEC asks *what did you sell?* FinCEN asks *whose money did you move?*
+
+Under U.S. rules, an entity that accepts and transmits value on behalf of others is a **money services business (MSB)** — specifically, a money transmitter. An MSB must register with FinCEN, maintain a written **AML** (anti-money-laundering) program, perform **KYC** (know-your-customer) identification on its customers, and file suspicious-activity reports. Most states pile a second layer on top: a state money-transmitter license, obtained state by state, each with its own bond and examination requirements. Operating as an unregistered money transmitter is a federal crime independent of anything securities law says about your token.
+
+FinCEN's guidance on convertible virtual currency distinguishes three roles. A **user** — someone spending or receiving their own tokens for their own purposes — is not an MSB. An **exchanger** — someone in the business of exchanging tokens for fiat or other tokens for customers — is. An **administrator** — someone with authority to issue and redeem a virtual currency — is too. The trap for a token issuer is that ordinary-sounding product decisions can cross the line: an issuer that redeems its tokens for fiat on demand, runs a custodial wallet holding customers' tokens, or operates a swap desk executing trades for customers can find itself an MSB without ever having thought of itself as a financial institution.
+
+Practical rules for the reader:
+
+- **Self-custody and peer-to-peer transfers are not transmission.** Users holding their own keys and sending tokens to each other implicate no MSB duty for you.
+- **Running a hosted wallet or an on/off-ramp is.** The moment you hold customers' value or convert it for them, you are in FinCEN territory and likely in fifty state regimes as well.
+- **Sanctions screening applies to everyone.** **OFAC** (the Office of Foreign Assets Control) prohibits transacting with sanctioned persons and addresses regardless of whether you are an MSB — which is why USDC has a freeze authority and has used it under sanctions orders (Chapter 1).
+
+The decision is worth a diagram and an hour with counsel: if your business model includes custody, redemption, or exchange for customers, the MSB analysis belongs on the launch checklist next to the Howey analysis.
+
+:::{figure} ../images/ch12-msb-decision-tree.png
+:label: fig-ch12-msb
+:alt: Decision tree for money services business status — starting from what the project does with customer value, branching through user (own tokens, no MSB), exchanger (converts value for customers, MSB), and administrator (issues and redeems, MSB), ending in FinCEN registration, AML program, KYC, and state money-transmitter license obligations, with an OFAC banner noting sanctions screening applies to all
+:width: 80%
+:align: center
+
+**The MSB Decision Tree:** FinCEN distinguishes users (not MSBs) from exchangers and administrators (MSBs). Custody, redemption, or exchange for customers triggers federal registration, an AML program, KYC, and state licensing. OFAC sanctions screening applies to everyone, MSB or not.
+:::
+
 ---
 
 ## Disclosure and Transparency: Legal Shield and Marketing Tool
@@ -190,6 +240,8 @@ Social engineering attacks target humans, not systems. The goal is to manipulate
 **The Emergency Panic Attack:** One of the most effective social engineering attacks is manufactured urgency. Someone contacts you claiming there is a critical exploit in your contract that will be triggered in 30 minutes unless you take a specific action immediately. The urgency is designed to bypass your judgment. Real security researchers follow responsible disclosure processes — they do not give you 30-minute ultimatums. Anyone doing so is almost certainly an attacker.
 :::
 
+DeFi-specific risks — oracle manipulation, bridge exploits, liquidation cascades, composability failure — are covered in Chapter 5, *DeFi Risk*; treat every protocol you integrate as part of your attack surface.
+
 ---
 
 ## Operational Risk: What "Immutable" Actually Means
@@ -248,6 +300,8 @@ Launching a token economy without a checklist is like opening a restaurant witho
 - [ ] Document and publish the full token allocation and vesting schedule
 - [ ] Document what authorities you have revoked and what remains active
 - [ ] Write and publish the community security policy (no DMs, no seed phrase requests)
+- [ ] Tax treatment of the airdrop, contributor payments, and treasury sales reviewed (Chapter 6)
+- [ ] MSB/money-transmitter analysis completed if you custody, redeem, or exchange for customers
 
 **Technical:**
 - [ ] Contract audited by an independent security firm
@@ -337,6 +391,19 @@ Regulatory environments change. The SEC issues new guidance. A jurisdiction that
 
 Treat your launch documentation, security policies, and disclosure materials as living documents that are reviewed quarterly and updated whenever material conditions change.
 
+:::{admonition} Regulatory Snapshot — as of August 2026
+:class: note
+
+A dated box, so the securities section above — written against the 2022–2024 enforcement era — reads correctly today.
+
+- **SEC posture.** In 2025 the SEC moved from enforcement-first to guidance and rulemaking: it formed a Crypto Task Force, dropped or paused most pending cases against exchanges, and its Division of Corporation Finance issued staff statements that most **memecoins** (February 2025) and most **protocol staking** arrangements — solo, delegated, and custodial staking on proof-of-stake networks (May 2025) — are not securities offerings. Staff statements are not rules and do not bind the courts; the Howey analysis in this chapter is still the law.
+- **Stablecoins.** The **GENIUS Act** (signed July 18, 2025) is the first federal stablecoin statute: only licensed "permitted payment stablecoin issuers" may issue; reserves must be 1:1 in cash and short-term Treasuries with monthly public disclosure; holders redeem at par. Implementing rules were proposed by the OCC and Treasury in early 2026; the regime takes full effect by early 2027.
+- **Market structure.** The **Digital Asset Market Clarity Act** (H.R. 3633), which would divide oversight of digital assets between the SEC and the CFTC and define when a token is a "digital commodity," passed the House in July 2025 and cleared the Senate Banking Committee in May 2026; as of August 2026 it awaits a Senate floor vote scheduled for September 2026. Until it is enacted, the Howey test and FinCEN rules above are the operative framework.
+- **European Union.** **MiCA** has been fully in force since December 30, 2024; any project offering tokens or services to EU residents needs a licensed crypto-asset service provider and, for stablecoins, an authorized issuer.
+
+Update this box every term; the dates above are the last verification.
+:::
+
 ---
 
 ## Case Study: The Projects That Got It Right
@@ -413,6 +480,21 @@ One-Page Explainer
 
 Succession Planning
   Documentation describing what happens to key management, project operations, and governance if a key team member becomes unavailable. Required for any project that intends to operate beyond its founding team.
+
+FinCEN
+  The Financial Crimes Enforcement Network, the U.S. Treasury's financial-crimes unit. Administers the Bank Secrecy Act, registers money services businesses, and issues the guidance that determines when a token project has crossed into money transmission.
+
+Money Services Business (MSB)
+  A FinCEN-defined category that includes money transmitters — entities that accept and transmit value on behalf of others. MSBs must register with FinCEN, run an AML program, perform KYC, and typically obtain state money-transmitter licenses. FinCEN's virtual-currency guidance treats exchangers and administrators as MSBs; users spending their own tokens are not.
+
+AML
+  Anti-money-laundering. The written program of policies, monitoring, and suspicious-activity reporting that registered money services businesses must maintain under the Bank Secrecy Act.
+
+KYC
+  Know Your Customer. The identification and verification of customers that AML programs require before providing financial services. See also Chapter 1's discussion of custodial onboarding — exchanges perform KYC because they are MSBs.
+
+OFAC
+  The Office of Foreign Assets Control, the U.S. Treasury office that administers sanctions. Transacting with sanctioned persons or addresses is prohibited for everyone — MSB or not — which is why USDC's issuer maintains and has used a freeze authority.
 ```
 
 ---
@@ -460,6 +542,9 @@ Before you can defend your token economy, you have to know where it is exposed. 
 3. **Key management.** Who holds the keys to your project's most sensitive authorities? Is any single person a single point of failure?
 4. **Threat inventory.** Which of the four threat categories (phishing, fake tokens, rug pull mechanics, social engineering) are you most exposed to, given your project's current structure?
 5. **Operational risk assessment.** Identify your three largest operational risks. For each, describe what happens if it materializes and what the mitigation looks like.
+6. **Buyer's Check yourself.** Run Chapter 10's 60-second Buyer's Check on your own token and paste the result into your one-page explainer's Risks section. If your own token fails a check that takes one minute, assume every serious buyer will run it too.
+7. **Phishing drill.** Write the exact Discord message a scammer would send your holders — the impersonation, the urgency, the link. Then write the pinned security rule that defeats it. Knowing the attack from the inside is what makes the defense specific instead of generic.
+8. **Regulator drill.** In one paragraph each, answer: "Is this a security?" (Howey analysis above), "Are you a money transmitter?" (the *Money Transmission, AML, and FinCEN* section), and "What did your airdrop recipients owe in tax?" (Chapter 6's tax box).
 
 ### Group Build: The Investor Panel Presentation
 
@@ -497,3 +582,6 @@ The capstone artifact is the one-page explainer. It is the single document that 
 - [Squads Multisig Protocol](https://squads.so) — Professional multisig treasury management on Solana
 - [Realms Governance](https://app.realms.today) — On-chain governance infrastructure for Solana projects
 :::
+
+<!-- NEW IMAGES NEEDED: ch12-exemption-map.png (Reg D 506(c), Reg S, Reg CF, Reg A+ mapped to who may buy and the Token-2022 extensions enforcing each restriction) · ch12-msb-decision-tree.png (user vs. exchanger vs. administrator branches ending in FinCEN registration, AML, KYC, state licensing; OFAC banner applying to all) · ch12-regulatory-snapshot.png (dated August 2026 snapshot: SEC posture, GENIUS Act, CLARITY Act status, MiCA) -->
+

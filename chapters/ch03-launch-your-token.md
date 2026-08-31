@@ -122,6 +122,56 @@ This roadmap can be announced in advance, communicated to token holders, and ver
 
 ---
 
+## Token-2022: Extensions for Business Tokens
+
+There are two token programs on Solana. The original **SPL Token program** is what this chapter's lab uses — it is the standard described above, and it is deliberately minimal: mint, transfer, burn, freeze, and nothing else. The second is **Token-2022** (also called Token Extensions), a newer program from Solana Labs that adds optional, per-mint features on top of the same standard. A Token-2022 mint is still an SPL-standard token: Phantom, Solscan, Jupiter, and Raydium's CPMM pools all support it. Older programs — Raydium's AMM v4 pools and some legacy tools — do not, so check compatibility before pairing a Token-2022 mint with an older protocol.
+
+Why should a business student care? Because several of the design problems this book raises in later chapters have protocol-level answers in Token-2022 — features enforced by the token program itself rather than by your application code or your promises. Here are the extensions that matter for a business token:
+
+**Transfer fee.** A percentage of every transfer is withheld to a treasury or burned, automatically, on every transaction. This is Chapter 4's consumption sink enforced by the protocol rather than by your app. No integration, no honor system — the token itself collects the fee.
+
+**Non-transferable.** A token that cannot leave the wallet it was minted to. This is the real way to build Chapter 2's reputation token and Chapter 9's soulbound credential: a certification that cannot be sold is a certification that actually means something.
+
+**Permanent delegate.** An authority that can transfer or burn tokens from *any* account holding the token. This is the compliance clawback for regulated assets (Chapter 12) — a court order can be executed on-chain. It is also a glaring red flag on a token that claims to be community-owned: whoever holds the permanent delegate can take anyone's tokens at any time.
+
+**Default account state (frozen).** New token accounts start frozen until the issuer thaws them. This is how you build a KYC-gated token: no one can receive or trade it until the issuer verifies them and unfreezes their account. This is the real-world-asset pattern from Chapter 2, implemented at the mint level.
+
+**Confidential transfers.** Transfer amounts are encrypted on-chain while remaining auditable by the issuer. This is the privacy answer to Chapter 10's "glass airplane" problem — a payroll paid in tokens does not have to broadcast every salary to the world.
+
+**Interest-bearing.** A display-only interest rate that shows balances growing over time. No new tokens are actually minted — wallets simply display the accrued amount. Useful for representing interest-bearing instruments without continuous mint transactions.
+
+**Metadata pointer / on-chain metadata.** The token's name, symbol, and URI stored directly on the mint account, without a separate Metaplex metadata account. One account instead of two.
+
+**Transfer hook.** A program of your choosing that runs on every transfer of the token. This is the mechanism behind enforceable NFT royalties in Chapter 9 — the hook can reject any transfer that does not pay the royalty.
+
+### Which Extensions for Which Token?
+
+| Token Type (Ch. 2) | Extensions to Consider | What a Buyer Should Think When They See It |
+|---|---|---|
+| Payment | Transfer fee (if fee-funded treasury) | A small fee is a disclosed business model; a large one is a tax |
+| Access / Membership | Transfer fee; metadata pointer | Reasonable — fees fund the community treasury |
+| Ownership / RWA | Default frozen; permanent delegate; transfer hook | Expected — this is how compliance works on-chain |
+| Reputation / Credential | Non-transferable | Correct — a sellable credential is worthless |
+| Regulated asset | Default frozen; permanent delegate; confidential transfers | Expected and disclosed in offering documents |
+| Any "community" token | — | Permanent delegate or default frozen on a token marketed as community-owned = walk away |
+
+:::{admonition} Where the Analogy Breaks Down
+:class: note
+
+If the SPL standard is the electrical outlet, Token-2022 extensions are appliances hard-wired into the wall at construction time. Extensions are set when the mint is created, and most cannot be added later. You cannot launch a plain token and bolt on a transfer fee next quarter, and you cannot quietly remove a permanent delegate's stigma by pointing to a roadmap. Like the authority decisions above, extensions are permanence decisions — make them deliberately, at design time.
+:::
+
+:::{figure} ../images/ch03-token2022-extensions-table.png
+:label: fig-ch03-token2022
+:alt: Reference table of Token-2022 extensions — transfer fee, non-transferable, permanent delegate, default frozen, confidential transfers, interest-bearing, metadata pointer, transfer hook — mapped to business token types and buyer interpretations
+:width: 80%
+:align: center
+
+**Token-2022 Extensions for Business Tokens:** Eight optional, per-mint features that move common business requirements — fees, compliance, privacy, non-transferability — from application code into the token program itself. All are set at mint creation.
+:::
+
+---
+
 ## Associated Token Accounts: Why Receiving a New Token Is Not Automatic
 
 Here is something that surprises almost everyone encountering Solana for the first time: you cannot simply send someone a new token. If a person has never held your token before, their wallet does not yet have a place to receive it.
@@ -134,7 +184,7 @@ Solana's model is different. **Every piece of state on Solana must live in an ac
 
 The phrase "Associated Token Account" is derived from a deterministic algorithm: given a wallet address and a token's mint address, you can always compute the expected ATA address without any lookup. It is associated because the relationship is derived from the two inputs, not stored anywhere.
 
-What this means practically: when you send your token to someone for the first time, you — the sender — must pay the rent (approximately 0.002 SOL, about \$0.30 at typical prices) to create their ATA if it does not yet exist. No-code tools like Smithii handle this automatically; it is baked into the cost of sending. But it is important to understand *why* this happens, because it shapes how you design an airdrop, a distribution, or a reward program.
+What this means practically: when you send your token to someone for the first time, you — the sender — must pay the rent (approximately 0.002 SOL, about \$0.20 at SOL ≈ \$100) to create their ATA if it does not yet exist. No-code tools like Smithii handle this automatically; it is baked into the cost of sending. But it is important to understand *why* this happens, because it shapes how you design an airdrop, a distribution, or a reward program.
 
 :::{figure} ../images/ch03-associated-token-accounts.png
 :label: fig-ch03-ata
@@ -189,7 +239,7 @@ When Squarespace launched, web developers were skeptical. "Real" websites were b
 
 What Squarespace actually was, was a layer of abstraction over exactly the same web primitives that developers use. Every Squarespace site generates HTML, CSS, and JavaScript. The DNS records are real DNS records. The hosting infrastructure is real hosting infrastructure. Squarespace did not create a different kind of website. It created a different interface for creating the same kind of website.
 
-No-code token creators — tools like **Smithii.io**, **SPL Token UI**, **Solana Token Creator** by Orca, and others — are the Squarespace of the Solana token ecosystem. When you fill in a form with your token name, ticker, initial supply, and decimals, and click Deploy, the tool is doing exactly what a developer would do with the Solana CLI or the SPL Token library:
+No-code token creators — tools like **Smithii.io**, **SPL Token UI**, **Solana Compass's Token Creator** (solanacompass.com/tools/create-solana-token), and others — are the Squarespace of the Solana token ecosystem. When you fill in a form with your token name, ticker, initial supply, and decimals, and click Deploy, the tool is doing exactly what a developer would do with the Solana CLI or the SPL Token library:
 
 1. Generate a new keypair (the mint address)
 2. Call the SPL Token program to initialize the mint with your specified parameters
@@ -351,6 +401,18 @@ Open Phantom and send exactly 100 of your tokens to your backup wallet address. 
 
 Wait for the transaction to confirm (typically under 1 second on Solana mainnet). Open your backup wallet and confirm the 100 tokens are visible. Find the transfer transaction on Solscan — navigate to the transaction hash in Phantom's activity log and verify all fields show correctly.
 
+### Step 8: Read a Token-2022 Token in the Wild (10 min)
+
+1. On Solscan, open the PYUSD (PayPal USD) mint: `2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo`. On the token page, note the **Owner Program** field shows **Token 2022 Program**, not the original SPL Token program.
+2. Find the **Extensions** panel. PYUSD enables confidential transfers, transfer hook, permanent delegate, metadata + metadata pointer, mint close authority, and transfer fees. For each, write which business need from the table in the *Token-2022* section above it serves (for example: permanent delegate = regulatory clawback; confidential transfers = payroll privacy).
+3. Compare to your own token's page: your token program, your extensions (none). Write two sentences on which single extension you would add to your token and why — or why none.
+
+### Step 3b (Optional, Devnet): Mint a Token-2022 Test Token
+
+1. Switch Phantom to devnet (Settings → Developer Settings → Testnet Mode). Get devnet SOL at `https://faucet.solana.com`.
+2. Open Smithii's **Tax Token Creator** (tools.smithii.io → Solana → Tax Token Creator), which mints a Token-2022 token with the transfer-fee extension. Switch it to devnet, and create a throwaway token with a 1% transfer fee.
+3. Send 100 tokens to your backup wallet. On Solscan (devnet), open the transfer and find the withheld fee. Record it.
+
 ### Deliverable
 
 Submit to your instructor:
@@ -463,6 +525,33 @@ Rent-Exempt Deposit
 
 Mainnet-Beta
   Solana's live production network, where tokens have real economic value and all transactions are final. Distinct from devnet (free testing) and testnet (validators test new features).
+
+Token-2022
+  Solana's second token program (also called Token Extensions), which adds optional per-mint features — fees, transfer restrictions, privacy, hooks — on top of the SPL standard. Supported by Phantom, Solscan, Jupiter, and Raydium's CPMM pools; not by some older programs. Extensions are set at mint creation and most cannot be added later.
+
+Transfer Fee (Extension)
+  A Token-2022 extension that withholds a configured percentage of every transfer to a treasury or for burning, enforced by the token program on every transaction.
+
+Non-Transferable (Extension)
+  A Token-2022 extension that prevents a token from ever leaving the wallet it was minted to. The protocol-level mechanism for soulbound credentials and reputation tokens.
+
+Permanent Delegate (Extension)
+  A Token-2022 extension granting one authority the power to transfer or burn tokens from any holder's account. Used for regulatory clawback on compliant assets; a serious red flag on a token marketed as community-owned.
+
+Default Account State (Extension)
+  A Token-2022 extension under which new token accounts start frozen until the issuer thaws them. The mechanism for KYC-gated and accredited-only tokens.
+
+Confidential Transfers (Extension)
+  A Token-2022 extension that encrypts transfer amounts on-chain while keeping them auditable by the issuer. Provides transaction privacy without leaving the public ledger.
+
+Interest-Bearing (Extension)
+  A Token-2022 extension that displays balances growing at a configured rate. No new tokens are minted; wallets compute and display the accrued amount.
+
+Metadata Pointer (Extension)
+  A Token-2022 extension that stores a token's name, symbol, and URI directly on the mint account, without a separate Metaplex metadata account.
+
+Transfer Hook (Extension)
+  A Token-2022 extension that invokes a designated program on every transfer of the token, allowing custom rules — such as enforceable royalties — to run at the protocol level.
 ```
 
 ---
@@ -476,3 +565,5 @@ The \$60 buys you infrastructure. What you do with it is the real work — and i
 ---
 
 *Next: Chapter 4 — Tokenomics on a Napkin: designing the supply schedule, vesting curves, and incentive structures that make a token economy self-sustaining.*
+
+<!-- NEW IMAGES NEEDED: ch03-token2022-extensions-table.png (reference table of the eight Token-2022 extensions mapped to business token types and buyer interpretations) -->

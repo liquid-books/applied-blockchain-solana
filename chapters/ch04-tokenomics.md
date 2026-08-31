@@ -178,9 +178,32 @@ The design lesson: **every successful token economy has utility sinks** — mech
 - **Governance** — lock tokens to vote on protocol decisions
 - **Premium features** — hold a minimum balance to access certain functionality
 - **Fee discounts** — hold tokens to reduce platform fees (Binance BNB model)
-- **Collateral** — post tokens as collateral to access loans or derivatives
+- **Collateral** — post tokens as collateral to access loans or derivatives (how lending markets do this: Chapter 5, *Beyond the Pool*)
 
 The depth and quality of your utility sinks determine whether your token has genuine demand or merely transient activity.
+
+---
+
+## The Other Side of the Napkin: Demand
+
+Everything in this chapter so far — supply, allocation, vesting, unlocks — describes one curve. Supply curves without demand curves produce no price. The napkin has a second side, and it can be modeled with the same arithmetic.
+
+1. **The minimum demand model.** Estimate expected users per month, multiply by the tokens each must hold — pull the tier thresholds from Chapter 7's table (100 tokens for Explorer, 500 for Builder, 2,000 for Architect, 10,000 for Founder) — and multiply by the average holding period. That product is tokens locked in sinks. Add tokens consumed (burned) per month. Using the worked example above: if the protocol's \$200,000 in year-1 fees burns 2,000,000 tokens at \$0.10, that is roughly 167,000 tokens consumed per month; if 1,000 users each hold an average of 500 tokens to keep a tier, another 500,000 tokens sit locked in the status sink.
+
+2. **The implied price band.** Compare tokens demanded in sinks against circulating supply from your Step 3 projection. When sink demand exceeds the circulating float, price pressure is upward — buyers must bid tokens away from holders who have reasons not to sell. When unlocks exceed sink growth, pressure is downward — new supply arrives faster than new reasons to hold it.
+
+3. **The inflection.** The month where monthly burns + newly locked tokens ≥ monthly unlocks + emissions is the month your token economy stops leaking. Run it on the worked example: year 1 issues 5,000,000 tokens to stakers (≈ 417,000/month) against ≈ 167,000/month burned — supply wins, pressure is downward. By year 2, burns reach 5,000,000 against 5,250,000 issued (≈ 437,500 vs. ≈ 417,000 per month) — burns nearly match emissions, and any locked-sink growth on top tips the balance. That crossover is the inflection point the worked example identified; the demand model tells you *when* it arrives, not just *whether*.
+
+4. **One honest caveat.** This is a napkin, not a valuation. It tells you whether the design is coherent — whether demand mechanisms could plausibly absorb the supply schedule you built — not what the price will be. A coherent design can still fail; an incoherent one is guaranteed to.
+
+:::{figure} ../images/ch04-demand-vs-supply-inflection.png
+:label: fig-ch04-inflection
+:alt: Line chart showing monthly token unlocks plus emissions declining as monthly burns plus newly locked tokens rise, with the crossover month marked as the inflection point
+:width: 80%
+:align: center
+
+The inflection point: the month where monthly burns plus newly locked tokens meet or exceed monthly unlocks plus emissions. Before it, supply pressure dominates; after it, demand mechanisms absorb the float.
+:::
 
 ---
 
@@ -230,7 +253,7 @@ The four most common tokenomics failure patterns — each one a design decision 
 
 **The Liquidity Trap:** The initial liquidity pool is too thin relative to market cap. Even a small sell order moves the price significantly. Sophisticated traders exploit this by buying into artificial scarcity, then selling as soon as the project attracts retail attention. The fix: liquidity pool allocation should be large enough that a single trade cannot move the price more than two to three percent. A rough rule is to seed liquidity equal to three to five percent of total supply at launch price.
 
-**The Circular Yield:** The project advertises "high APY staking rewards" — sometimes hundreds of percent annually. These yields are paid in new tokens. To sustain the APY, new tokens must be printed. Printing new tokens dilutes existing holders. To maintain token price, new buyers must enter faster than existing holders are diluted. When new buyer flow slows, the system collapses. This is not a bug — it is the structural logic of any Ponzi scheme applied to tokens. The tell: if the advertised yield exceeds the project's actual revenue yield by more than five-to-one, the extra yield is being funded by dilution, not by real economic activity.
+**The Circular Yield:** The project advertises "high APY staking rewards" — sometimes hundreds of percent annually. These yields are paid in new tokens. To sustain the APY, new tokens must be printed. Printing new tokens dilutes existing holders. To maintain token price, new buyers must enter faster than existing holders are diluted. When new buyer flow slows, the system collapses. This is not a bug — it is the structural logic of any Ponzi scheme applied to tokens. The tell: if the advertised yield exceeds the project's actual revenue yield by more than five-to-one, the extra yield is being funded by dilution, not by real economic activity. Chapter 5's *Real Yield vs. Emissions Yield* gives the mechanism and a test you can run on any advertised APY.
 
 ---
 
@@ -305,6 +328,12 @@ Your justification should answer: Why does this allocation serve long-term token
 :::{note}
 **Sample Investor Justification (Balanced Scenario):**
 "LabToken's Balanced allocation reflects our commitment to long-term ecosystem growth over short-term insider capture. The founding team's twenty percent allocation is protected by a four-year vest with a one-year cliff — we cannot sell a single token until the project has proven it can stand on its own. Investors receive twelve percent, vesting over thirty months, meaning their incentives align with sustained token value rather than a launch-day exit. The thirty-five percent community allocation is deployed over four years through staking rewards, grants, and contribution bounties — not dumped as a one-time airdrop. The eight percent liquidity allocation ensures market depth from day one. We believe this structure answers the fundamental question any token holder should ask: 'Are the people who built this locked in alongside me?' The answer is yes, for four years."
+:::
+
+**Step 5: Add the demand column.** For your chosen scenario, estimate users at months 1, 6, and 12 (three numbers). Multiply each by the Chapter 7 tier requirement your typical user targets (e.g., 500 tokens for Builder) to get tokens locked in sinks. Add estimated monthly burns. Compare against that month's unlocks from your Step 3 projection and mark the inflection month — the first month where burns + newly locked tokens ≥ unlocks + emissions. If there is no inflection within 12 months, note that, and write one sentence on what you would change (slower vesting, deeper sinks, or a burn mechanism) to create one.
+
+:::{note}
+A starter spreadsheet is provided in the repo at `resources/ch04-tokenomics-model.xlsx`, with tabs for Allocation, Vesting, Circulating, and Demand. The formulas are wired together — change the allocation percentages or vesting terms and the circulating supply projection, demand model, and inflection indicator update automatically.
 :::
 
 ---
@@ -428,3 +457,5 @@ Unlock Event
 
 5. **Transparency is the product.** Post your allocation table, vesting schedule, and circulating supply projections publicly before launch. Investors who have to ask for this information will assume the answer is unfavorable.
 :::
+
+<!-- NEW IMAGES NEEDED: ch04-demand-vs-supply-inflection.png (line chart: monthly unlocks + emissions vs. monthly burns + newly locked tokens, crossover month marked as the inflection point) -->

@@ -75,6 +75,8 @@ Thin liquidity is the structural vulnerability that bad actors exploit. When a w
 
 Liquidity depth is the difference between a price that breathes normally and one that convulses on every medium-sized transaction.
 
+For the chain-wide version of this number see DeFiLlama (Chapter 5, *The DeFi Map*).
+
 **Where to read it:** Birdeye → Liquidity tab. Shows depth by pool and total locked value.
 
 ### Top-10 Holder Concentration
@@ -279,6 +281,10 @@ For your token, DexScreener shows:
 
 **The discovery angle:** DexScreener ranks tokens by volume. A token that organically reaches top-20 in its category on DexScreener gains significant exposure to traders actively seeking new opportunities. Understanding this discovery mechanic helps you time your utility launches, partnerships, or community events to align with volume spikes that could drive organic discovery.
 
+### Dune — The Query Layer
+
+Dune indexes Solana and lets anyone write SQL over transactions or fork public dashboards. Where Solscan, Birdeye, and DexScreener answer the questions their designers anticipated, Dune answers the questions you write yourself — or, more practically, the questions someone else already wrote and published as a public dashboard. For this course, read rather than write: search Dune for public Solana dashboards covering daily active wallets, DEX volume, or protocol-level activity, and fork or bookmark the ones relevant to your category.
+
 :::{figure} ../images/ch10-solscan-deep-dive.png
 :label: fig-ch10-solscan-deep-dive
 :alt: Detailed Solscan token page walkthrough with annotated sections showing holder analysis, transaction investigation, and mint authority verification
@@ -401,6 +407,31 @@ Once you have your benchmark, run the same five-metric analysis and write a one-
 
 ---
 
+## Read a Token in 60 Seconds: The Buyer's Check
+
+Everything in this chapter consolidates into a single habit: before you buy, hold, or list any token, run this checklist. Each item names where to look.
+
+:::{figure} ../images/ch10-buyers-check.png
+:label: fig-ch10-buyers-check
+:alt: Seven-item buyer's checklist for evaluating a Solana token in sixty seconds, showing where to check mint authority, LP lock, holder concentration, deployer history, Token-2022 extensions, volume quality, and published team information
+:width: 80%
+:align: center
+
+**The 60-Second Buyer's Check.** Seven checks, seven places to look, one minute of work — the minimum diligence before touching any token.
+:::
+
+1. **Mint authority and freeze authority revoked?** — Solscan token page (Chapter 3).
+2. **LP locked or burned, and how much?** — RugCheck / DexScreener (Chapter 5).
+3. **Top-10 concentration, excluding pool addresses** — Solscan holders (this chapter).
+4. **Deployer wallet history** — click the creator address on Solscan; has it deployed other tokens, and what happened to them?
+5. **Token-2022 extensions that concentrate power (permanent delegate, freeze)** — Solscan extensions panel (Chapter 3).
+6. **Is the volume organic?** — this chapter's wash-trade test.
+7. **Is there a published team, allocation, and audit?** — Chapter 12.
+
+The whole check takes one minute and would have caught most rug pulls in the last three years.
+
+---
+
 ## 📊 Hands-On Lab: Building Your Token Dashboard
 
 This lab takes you from raw blockchain data to a live, management-ready one-page dashboard.
@@ -435,6 +466,14 @@ Open Birdeye and navigate to your token:
 
 Record all values in your dashboard template.
 
+### Step 1a: Read a Dune Dashboard (5 min)
+
+Open `https://dune.com`, search "Solana" dashboards, open any public dashboard showing daily active wallets or DEX volume, and record one number and its date. Note that you did not need an account or code.
+
+### Step 1b: Read the DeFi Map (5 min)
+
+Open `https://defillama.com/chain/Solana`. Record total TVL and the top three protocols by TVL, and label each as DEX, lending, or liquid staking (all defined in Chapter 5, *Beyond the Pool*). Compare to the numbers you recorded in Chapter 5's Part E.
+
 ### Step 2: Categorize Your Top-10 Holders
 
 For each of your top-10 holder addresses, click through to their Solscan account page and note:
@@ -445,6 +484,10 @@ For each of your top-10 holder addresses, click through to their Solscan account
 - Recent activity related to your token (buying, holding, distributing?)
 
 Calculate the concentration percentage for protocol addresses vs. non-protocol addresses separately. Your adjusted concentration (excluding protocols) is the metric that matters for structural risk assessment.
+
+### Step 2a: Run the Buyer's Check (10 min)
+
+Run the 60-second Buyer's Check on your own token and on your benchmark token; put both in a two-column table. Optional: open `https://app.bubblemaps.io`, load your benchmark token, and screenshot the holder cluster map — connected bubbles are wallets funded from the same source (the Sybil and wash-trade fingerprint).
 
 ### Step 3: Select and Analyze Your Benchmark Token
 
@@ -468,7 +511,9 @@ This paragraph is your token economy's health assessment. It is the deliverable 
 
 **A written health assessment** — one clear paragraph diagnosing your economy's current state and the one action most worth taking.
 
-These two artifacts are the minimum viable management system for any serious token project.
+**A Buyer's Check table** — the 60-second check run on your token and your benchmark, side by side, included with the dashboard.
+
+These artifacts are the minimum viable management system for any serious token project.
 :::
 
 ---
@@ -492,7 +537,7 @@ This chapter's core question: **Is radical transparency good for a business?**
 :::{admonition} Privacy in a Transparent World
 :class: note
 
-On-chain transparency raises a critical counterpoint: what about privacy? Zero-knowledge proofs represent the frontier of reconciling public verifiability with private data. Watch the explainer below to understand how ZKPs can prove something is true without revealing the underlying information — a concept increasingly relevant to compliant token design.
+On-chain transparency raises a critical counterpoint: what about privacy? Zero-knowledge proofs represent the frontier of reconciling public verifiability with private data. Watch the explainer below to understand how ZKPs can prove something is true without revealing the underlying information — a concept increasingly relevant to compliant token design. Token-2022 confidential transfers (Chapter 3) are the practical, non-ZK-research answer available today.
 :::
 
 **▶ Watch: Zero Knowledge Proof — ZKP (10 min)**
@@ -605,3 +650,6 @@ The advantage: your successes are equally public. Organic growth, genuine holder
 A token creator who monitors their economy's vital signs weekly, maintains a benchmarked dashboard, and reads their holder distribution honestly is not performing sophistication. They are practicing the minimum viable diligence that your holders deserve and your economy requires.
 
 Fly the glass airplane. Just make sure it is actually airworthy.
+
+<!-- NEW IMAGES NEEDED: ch10-buyers-check.png (seven-item 60-second buyer's checklist with where-to-look annotations) -->
+

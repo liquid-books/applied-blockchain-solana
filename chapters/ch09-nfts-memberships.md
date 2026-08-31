@@ -47,7 +47,7 @@ But imagine you're issuing access to the front row at your annual conference. Se
 **Fungible vs. Non-Fungible.** Fungible tokens are interchangeable units. Non-fungible tokens carry unique identity — like serial numbers on physical assets.
 :::
 
-On Solana, a non-fungible token is technically a SPL token with a supply of exactly one, combined with a metadata account that describes what that single token *means*. That metadata account — maintained by Metaplex's Token Metadata program — is what transforms a raw on-chain record into something a human being can recognize as "Gold Member Pass #47."
+Under the Metaplex Token Metadata standard used in this lab, an NFT is an SPL token with supply of one plus a metadata account that describes what that single token *means*. That metadata account — maintained by Metaplex's Token Metadata program — is what transforms a raw on-chain record into something a human being can recognize as "Gold Member Pass #47."
 
 The insight that matters for business builders: **if your product has unique instances, NFTs give those instances provable, transferable identity.** That's the whole idea, stripped of the hype.
 
@@ -78,7 +78,7 @@ Ticket scalping exists because current ticketing infrastructure has no elegant w
 
 ### Credentials and Certificates
 
-A university diploma verifiable on-chain. A professional certification that any employer can confirm in seconds. A completion badge from an online course that lives in your wallet and travels with you across platforms. These are sometimes called "soulbound tokens" — NFTs designed to be non-transferable, proving credentials belong permanently to one holder. Metaplex supports this with a `isMutable: false` flag and the ProgrammableNFT standard.
+A university diploma verifiable on-chain. A professional certification that any employer can confirm in seconds. A completion badge from an online course that lives in your wallet and travels with you across platforms. These are sometimes called "soulbound tokens" — NFTs designed to be non-transferable, proving credentials belong permanently to one holder. Non-transferability is enforced either by a Programmable NFT rule set that blocks transfers or, for fungible or semi-fungible credentials, by the Token-2022 Non-Transferable extension (Chapter 3). The metadata `isMutable` flag controls whether the description and image can change — it has nothing to do with transfer.
 
 ### Receipts and Warranties
 
@@ -146,7 +146,22 @@ The metadata JSON and image need to live somewhere persistent. Two options domin
 - **IPFS via NFT.Storage or Pinata**: Content-addressed storage. Your file is identified by a hash of its contents. Free tiers exist. The risk: if no node is "pinning" your file, it can disappear.
 - **Arweave**: Pay once, stored permanently. Arweave's economic model is designed around perpetual storage. Bundlr (now Irys) makes Arweave uploads easy and cheap — a 1 MB file costs fractions of a cent. For production memberships where the metadata must exist forever, Arweave is the standard choice.
 
-For our lab, we will use the Metaplex Candy Machine UI, which handles metadata upload automatically.
+:::{admonition} Compressed NFTs
+:class: tip
+
+For 10,000 tickets or receipts, per-NFT rent is prohibitive. **Compressed NFTs** (Metaplex Bubblegum) store the collection in a Merkle tree so minting costs a fraction of a cent each, at the cost of needing an indexer (RPC provider) to read them. This is the right tool for the "receipt at point of sale" and "ticket" use cases in this chapter.
+:::
+
+:::{figure} ../images/ch09-compressed-nft-tree.png
+:label: fig-ch09-compressed-nft-tree
+:alt: Diagram of a compressed NFT collection stored as a Merkle tree, contrasting per-NFT rent for standard NFTs with fraction-of-a-cent minting for compressed NFTs read via an indexer
+:width: 80%
+:align: center
+
+**Compressed NFTs.** A standard NFT pays rent for its own accounts; a compressed collection stores thousands of assets in one Merkle tree, cutting mint cost to a fraction of a cent — read back through an indexer rather than directly from account state.
+:::
+
+For our lab, we will use LaunchMyNFT, which handles metadata upload automatically.
 
 ---
 
@@ -171,7 +186,11 @@ In 2022–2023, a wave of NFT marketplaces (Blur, most notably) launched with ze
 
 For membership passes — where the issuer has ongoing control of the backend system granting benefits — there is an even simpler solution: **the benefit is delivered by your backend, not enforced by the chain alone.** If someone buys your pass on a secondary market without paying the royalty, your backend can simply check whether the sale was royalty-compliant before granting access. You control the door; you can demand the toll was paid.
 
-For this course, we will use Metaplex Core (the 2025 standard) which supports transfer delegates and lifecycle hooks, giving creators meaningful programmatic control over transfers.
+:::{admonition} Two Metaplex Standards
+:class: note
+
+Metaplex maintains two NFT standards, and you will encounter both. **Token Metadata** — the standard this chapter's schema and lab use — wraps an SPL mint: one mint plus one metadata account per NFT. **Metaplex Core** is a newer single-account asset standard with built-in plugins for royalties, freezing, and transfer delegates, and a lower minting cost. For this course, we will use Metaplex Core (the 2025 standard) which supports transfer delegates and lifecycle hooks, giving creators meaningful programmatic control over transfers. Metaplex's own Candy Machine tooling is now developer tooling (a CLI and SDK — "Core Candy Machine"), so the lab uses a no-code launchpad and describes both standards.
+:::
 
 ---
 
@@ -260,7 +279,7 @@ For the lab, you will list one pass on Magic Eden because the interface is desig
 
 ### Overview
 
-You will design a three-tier membership NFT collection using Metaplex's no-code tools, mint passes on Solana mainnet, connect the tiers to your Chapter 7 token gate, and list one pass on a marketplace.
+You will design a three-tier membership NFT collection using a no-code launchpad, mint passes on Solana mainnet, connect the tiers to your Chapter 7 token gate, and list one pass on a marketplace.
 
 :::{figure} ../images/ch09-lab-workflow.png
 :label: fig-ch09-lab
@@ -275,7 +294,7 @@ You will design a three-tier membership NFT collection using Metaplex's no-code 
 
 - Phantom wallet with at least 0.05 SOL on mainnet (to cover minting fees)
 - Your SPL token from Chapter 3 (the fungible token your members will hold)
-- Your Underdog Protocol token gate from Chapter 7 (or a new one created following Chapter 7 instructions)
+- Your Collab.Land token gate from Chapter 7 (or a new one created following Chapter 7 instructions)
 - A laptop with a browser — no code editor required for the core lab
 
 ### Part 1 — Design Your Three-Tier Collection
@@ -309,57 +328,56 @@ For this lab, you will create three simple pass images — one per tier. Options
 
 Save each as a PNG file: `bronze.png`, `silver.png`, `gold.png`.
 
-### Part 3 — Upload Metadata via Metaplex Candy Machine UI
+### Part 3 — Deploy Your Collection with LaunchMyNFT
 
-**Navigate to:** [studio.metaplex.com](https://studio.metaplex.com) — Metaplex's no-code Candy Machine interface.
+**Navigate to:** [launchmynft.io](https://www.launchmynft.io) — a live no-code Solana NFT launchpad whose collections are recognized by Magic Eden and Tensor.
 
 :::{figure} ../images/ch09-metaplex-candy-machine.png
 :label: fig-ch09-candy-machine
-:alt: Metaplex Candy Machine architecture diagram showing collection config, Solana program, minting interface, and user wallets
+:alt: NFT launchpad minting architecture diagram showing collection config, Solana minting program, hosted mint page, and user wallets
 :width: 80%
 :align: center
 
-**Metaplex Candy Machine Architecture.** The Candy Machine program sits on Solana and enforces your collection's rules — supply, price, dates, allowlists — without any custom code from you. The Studio UI is the control panel.
+**The Launchpad's Minting Program.** The launchpad's minting program sits on Solana and enforces your collection's rules — supply, price, dates — without any custom code from you. The launchpad's web interface is the control panel.
 :::
 
 :::{note}
-Candy Machine is Metaplex's minting infrastructure. It handles the mechanics of a fair launch: setting supply, price, mint dates, and allowlists. The Studio UI wraps all of that in a browser-based workflow.
+Candy Machine is Metaplex's minting infrastructure — now developer-facing tooling (a CLI and SDK) that launchpads like LaunchMyNFT wrap in a browser-based workflow. It handles the mechanics of a fair launch: setting supply, price, mint dates, and allowlists.
 :::
 
 **Steps:**
 
-1. **Connect your Phantom wallet** using the Connect Wallet button. Ensure it's set to Mainnet.
+1. Go to `https://www.launchmynft.io` → **Create** → connect Phantom (mainnet).
 
-2. **Create a new Candy Machine** → click "Create" → select "New Collection."
+2. Choose **Upload your own assets**. Upload `gold.png` (and, if you like, `silver.png` and `bronze.png` as separate items) with a name for each ("Gold Member Pass #1").
 
-3. **Upload your assets:** For each tier, you will create a separate Candy Machine (three total) or use Metaplex's multi-group configuration if available. For simplicity, start with one tier (Gold) for the lab.
+3. Fill in the collection settings: **Collection name**, **Symbol** (`GPASS`), **Description**, **Royalty** 5%, **Supply** 5, **Mint price** 0 SOL, mint start **now**.
 
-4. **Configure metadata:**
-   - Name: `Gold Member Pass`
-   - Symbol: `GPASS` (or your brand abbreviation)
-   - Seller Fee Basis Points: `500` (= 5% royalty)
-   - Upload your `gold.png`
+4. Review the fee summary LaunchMyNFT shows (a small per-collection deployment fee in SOL plus network rent), then **Deploy** and approve the transactions in Phantom.
 
-5. **Set mint settings:**
-   - Price: `0 SOL` (you're minting to your own wallet for the lab, so set price to 0)
-   - Supply: `5` (small number for the lab exercise)
-   - Start Date: Immediate
+5. On your collection's mint page, mint 2–3 passes to your own wallet. Confirm they appear in Phantom under **Collectibles**.
 
-6. **Review and deploy.** The Studio UI will ask you to sign two transactions: one to create the Candy Machine program account, one to upload the metadata. Each costs roughly 0.01 SOL.
-
-7. **Mint your passes.** After deployment, click "Mint" on the Candy Machine page. Mint 2–3 passes to your wallet. Verify they appear in your Phantom wallet under "Collectibles."
+6. Copy the **collection address** from the collection page (or from one pass's Solscan page under "Collection"). You need it for Part 4.
 
 ### Part 4 — Connect Tiers to Your Token Gate
 
-Return to the Underdog Protocol dashboard (app.underdogprotocol.com) or your token-gating solution from Chapter 7.
+Return to the Collab.Land Command Center (`https://cc.collab.land`) — the Chapter 7 Discord tool — and sign in with Discord.
 
-**Create a new gate condition:**
+**Create a second Token Gating Rule:**
 
-- Gate Type: `NFT Collection Gate`
-- Collection Address: (paste the collection address from your Candy Machine)
-- AND Condition: Token balance ≥ 2,000 (your Gold requirement)
+In the Command Center, open **TGRs** → **Add TGR** and set:
 
-This gate now requires *both* the Gold pass AND the token balance. Test it by visiting your gated content with your wallet connected. You should pass the gate because your wallet holds both the NFT and the required tokens.
+- **Chain:** Solana
+- **Token type:** NFT collection
+- **Collection address:** (paste the collection address from Part 3)
+- **Min balance:** 1
+- **Role:** Gold Member
+
+You now have two independent, automatically maintained roles: **Token Holder** (2,000 tokens, from Chapter 7) and **Gold Member** (holds a Gold pass). Create a `#gold-lounge` channel visible only to Gold Member.
+
+Then observe the two-factor check directly: a wallet holding the pass but not the tokens gets `#gold-lounge` but not `#holders-only`; a wallet holding tokens but no pass gets the reverse; only a wallet with both sees both.
+
+Discord roles combine as OR, so a true AND gate (pass *and* balance for a single door) is enforced in your own app or backend that reads both — which is exactly what the chapter's "the benefit is delivered by your backend" paragraph on royalties already says.
 
 **To test a failing case:** Create a second wallet with no NFTs and visit the gate. You should be denied access. This confirms the gate is reading on-chain state correctly.
 
@@ -387,6 +405,10 @@ Leave your pass listed for the duration of the class session. Note:
 - Does the collection appear in search results?
 - What is the difference between the "list price" and the "buy now" price?
 - Where does the royalty percentage appear in the listing interface?
+
+### Part 7 — Read a Compressed Collection (5 min)
+
+On Solscan, open any large Solana NFT collection minted as cNFTs (search "compressed" in the NFT section or use a collection the instructor supplies) and note the mint cost of one asset vs. the ~0.01 SOL of your LaunchMyNFT mint. Record both.
 
 ---
 
@@ -485,8 +507,8 @@ Magic Eden
 Tensor
   A Solana NFT trading platform preferred by sophisticated traders, offering AMM liquidity, bulk tools, and lower fees than Magic Eden.
 
-Candy Machine UI (Studio)
-  Metaplex's browser-based no-code interface for creating and deploying Candy Machine NFT collections without writing smart contract code.
+LaunchMyNFT
+  A no-code Solana NFT launchpad: upload assets, set supply, price and royalty, deploy, and mint from a hosted page; collections are recognized by Magic Eden and Tensor.
 
 Transfer Hook
   A Solana Token-2022 feature allowing custom logic to execute on every transfer — enabling royalty enforcement and transfer restrictions at the protocol level.
@@ -516,3 +538,6 @@ The bigger takeaway is structural. Every business that sells access — subscrip
 - **Combining NFTs with fungible tokens** creates tiered economies richer than either instrument alone.
 - **Secondary markets are marketing.** Resale value attracts buyers who see membership as investment, not expense.
 - **Metaplex Candy Machine** lets you launch a membership collection without writing code.
+
+<!-- NEW IMAGES NEEDED: ch09-compressed-nft-tree.png (compressed NFT Merkle tree vs standard per-NFT rent, indexer read path) -->
+
